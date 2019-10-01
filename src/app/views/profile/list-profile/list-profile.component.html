@@ -1,0 +1,18 @@
+<div class="container">
+    <h2>Profile</h2>
+    <div class="card col-8" *ngIf="userDetails">
+        <img class="card-img-top" src="{{'http://192.168.10.184/UserRegistration/public/' +  userDetails.image }}" alt="{{ userDetails.image }}" style="width:25%">
+        <div class="card-body">
+            <h3 class="card-title"><i class="fa fa-user-circle-o" aria-hidden="true"></i> {{ userDetails.firstName }} {{ userDetails.lastName }}</h3>
+            <div class="row">
+                <h6 class="card-text col-6"><i class="fa fa-envelope-o" aria-hidden="true"></i> {{ userDetails.email }}</h6>
+                <h6 class="card-text col-6"><i class="fa fa-calendar" aria-hidden="true"></i> {{ userDetails.DOB }}</h6>
+            </div>
+            <div class="row">
+                <h6 class="card-text col-6" *ngIf="userDetails.gender == '1'"><i class="fa fa-male" aria-hidden="true"></i> Male</h6>
+                <h6 class="card-text col-6" *ngIf="userDetails.gender == '0'"><i class="fa fa-female" aria-hidden="true"></i> Female</h6>
+                <h6 class="card-text col-6"><i class="fa fa-phone" aria-hidden="true"></i> {{ userDetails.mobileNo }}</h6>
+            </div>
+        </div>
+    </div>
+</div>

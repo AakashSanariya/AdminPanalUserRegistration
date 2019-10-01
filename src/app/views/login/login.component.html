@@ -1,0 +1,18 @@
+<div class="container">
+    <div class="card card-container">
+        <img id="profile-img" class="profile-img-card" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" />
+        <p id="profile-name" class="profile-name-card"></p>
+        <form class="form-signin" #loginForm="ngForm" (ngSubmit)="loginForm.form.valid && onSubmit(loginForm.value)" method="post">
+            <span id="reauth-email" class="reauth-email"></span>
+            <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus name="email" #email="ngModel" [(ngModel)]="userEmail">
+            <div class="alert alert-danger" *ngIf="loginForm.submitted && email.invalid">
+                <div *ngIf="email.errors.required">Please Enter Email</div>
+            </div>
+            <input type="password" id="inputPassword" class="form-control" placeholder="Password" required name="password" #password="ngModel" [(ngModel)]="userPassword">
+            <div class="alert alert-danger" *ngIf="loginForm.submitted && password.invalid">
+                <div *ngIf="password.errors.required">Please Enter a Password</div>
+            </div>
+            <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Sign in</button>
+        </form><!-- /form -->
+    </div><!-- /card-container -->
+</div><!-- /container -->
