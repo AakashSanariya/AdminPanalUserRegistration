@@ -26,6 +26,7 @@ export class AdminGuardGuard implements CanActivate{
       localStorage.removeItem('token');
       localStorage.removeItem('userName');
       this.router.navigate(['/login']);
+      return false;
     }
   }
 }

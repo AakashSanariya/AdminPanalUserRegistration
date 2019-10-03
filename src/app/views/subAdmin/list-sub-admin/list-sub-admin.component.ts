@@ -18,9 +18,11 @@ export class ListSubAdminComponent implements OnInit {
   userId: number;
   status: string;
   spinner: boolean = true;
+  firstName: string = '';
+  lastName: string = '';
 
-  dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject();
+  dtOptions: DataTables.Settings = {};
   modalRef: BsModalRef;
 
   constructor(private router: Router,
@@ -30,6 +32,50 @@ export class ListSubAdminComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+
+    let columnsArray = [];
+    const that = this;
+
+    columnsArray = [
+      {data: "no", orderable: false},
+      {data: "firstName"},
+      {data: "lastName"},
+      {data: "email", orderable: false},
+      {data: "image", orderable: false},
+      {data: "status"}
+    ];
+    this.dtOptions = {
+      pagingType: 'full_numbers',
+      pageLength: 2,
+      serverSide: true,
+      searching: true,
+      responsive: true,
+      processing: true,
+      language: {
+        "emptyTable": 'No data!'
+      },
+      ajax: (dataTablesParameters: any, callback) => {
+        that.apiService.getsubAdmin(Object.assign(dataTablesParameters, {})).subscribe(result => {
+          that.spinner = false;
+          if(result){
+            if(result['meta'].status_code == 200){
+              that.userDetails = result['data'].userDetails.original.data;
+              console.log(this.userDetails);
+              callback({
+                recordsTotal: result['data'].userDetails.original.recordsTotal,
+                recordsFiltered: result['data'].userDetails.original.recordsFiltered,
+                data: []
+              });
+            }
+          }
+        }, error => {
+          this.spinner = false;
+          this.toaster.error(error);
+        });
+      },
+      columns: columnsArray
+    };
+   /*
     this.apiService.getsubAdmin().pipe(first()).subscribe(result => {
       if(result){
         this.spinner = false;
@@ -41,7 +87,7 @@ export class ListSubAdminComponent implements OnInit {
     }, error => {
       this.spinner = false;
       this.toaster.error(error);
-    });
+    });*/
   }
 
   /* Open Model*/

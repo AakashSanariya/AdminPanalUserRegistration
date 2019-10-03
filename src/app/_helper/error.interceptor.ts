@@ -4,11 +4,10 @@ import { catchError } from 'rxjs/operators';
 import { Router, ActivatedRoute } from '@angular/router';
 import {Observable, throwError} from "rxjs/index";
 import {ToastrService} from "ngx-toastr";
-import {AuthServiceService} from "../_service/auth-service.service";
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
-    constructor(private authenticationService: AuthServiceService, private router: Router  ,private toastr: ToastrService){ }
+    constructor(private router: Router  ,private toaster: ToastrService){ }
 
     intercept(request: HttpRequest < any >, next: HttpHandler): Observable < HttpEvent < any >> {
         let token = window.localStorage.getItem('token');
@@ -22,7 +21,7 @@ export class ErrorInterceptor implements HttpInterceptor {
         return next.handle(request).pipe(catchError(err => {
             if (err.status === 401) {
                 // this.authenticationService.logout();
-                this.toastr.error("Your session has beed expired.");
+                this.toaster.error("Your session has beed expired.");
                 this.router.navigate(['/login']);
             }
             const error = err.error || err.statusText;

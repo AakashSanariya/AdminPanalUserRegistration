@@ -3,6 +3,7 @@ import {ApiServiceService} from "../../../_service/api-service.service";
 import {ToastrService} from "ngx-toastr";
 import {Subject} from "rxjs/index";
 import {BsModalRef, BsModalService} from "ngx-bootstrap";
+import {first} from "rxjs/internal/operators/first";
 
 @Component({
   selector: 'app-user-list',
@@ -15,11 +16,13 @@ export class UserListComponent implements OnInit {
   userId: number = null;
   status: string;
   spinner: boolean = true;
+  firstName: string = '';
+  lastName: string = '';
 
   modalRef: BsModalRef;
 
-  dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject();
+  dtOptions: DataTables.Settings = {};
 
   constructor(private apiService: ApiServiceService,
               private toaster: ToastrService,
@@ -27,19 +30,62 @@ export class UserListComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.apiService.getUser().subscribe(result => {
+
+    let columnsArray = [];
+    const that = this;
+
+    columnsArray = [
+      {data: "no", orderable: false},
+      {data: "firstName"},
+      {data: "lastName"},
+      {data: "email", orderable: false},
+      {data: "image", orderable: false},
+      {data: "status"}
+    ];
+
+    this.dtOptions = {
+      pagingType: 'full_numbers',
+      pageLength: 2,
+      serverSide: true,
+      searching: true,
+      processing: true,
+      language: {
+        "emptyTable": 'No data!'
+      },
+      ajax: (dataTablesParameters: any, callback) => {
+        that.apiService.getUser(Object.assign(dataTablesParameters, {})).subscribe(result => {
+          that.spinner = false;
+          if(result){
+            if(result['meta'].status_code == 200){
+              that.userDetails = result['data'].userDetails['original'].data;
+              console.log(result['data'].userDetails.original);
+              callback({
+                recordsTotal: result['data'].userDetails.original.recordsTotal,
+                recordsFiltered: result['data'].userDetails.original.recordsFiltered,
+                data: []
+              });
+            }
+          }
+        }, error => {
+          this.spinner = false;
+          this.toaster.error(error);
+        });
+      },
+      columns: columnsArray
+    };
+
+    /*this.apiService.getUser().subscribe(result => {
       this.spinner = false;
       if(result){
         if(result['meta'].status_code == 200){
           this.userDetails = result['data'].userDetails;
           this.dtTrigger.next();
         }
-
       }
     }, error => {
       this.spinner = false;
       this.toaster.error(error);
-    });
+    });*/
   }
 
   openModal(template: TemplateRef<any>, id, status) {

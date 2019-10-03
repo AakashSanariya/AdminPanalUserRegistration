@@ -1,4 +1,11 @@
-<div class="container">
+<div *ngIf="spinner; loaded">
+    <div id="overlay">
+        <div class="spinner"></div>
+        <br/>
+        Loading...
+    </div>
+</div>
+<div class="container" #loaded>
     <div class="card card-container">
         <img id="profile-img" class="profile-img-card" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" />
         <p id="profile-name" class="profile-name-card"></p>

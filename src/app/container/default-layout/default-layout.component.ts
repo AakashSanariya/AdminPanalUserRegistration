@@ -16,8 +16,12 @@ export class DefaultLayoutComponent implements OnInit {
   modalRef: BsModalRef;
 
   ngOnInit() {
-    this.userName = localStorage.getItem('userName');
-    this.userRole = localStorage.getItem('role');
+    if(localStorage.getItem('userName')){
+      this.userName = localStorage.getItem('userName');
+    }
+    if(localStorage.getItem('role')){
+      this.userRole = localStorage.getItem('role');
+    }
   }
 
   /*Login and Logout Button Display*/

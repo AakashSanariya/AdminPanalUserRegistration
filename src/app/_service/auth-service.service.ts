@@ -11,13 +11,19 @@ import {ToastrService} from "ngx-toastr";
 export class AuthServiceService {
 
   constructor(private router: Router, private http: HttpClient, private toaster: ToastrService) { }
-  
+
+  /*
+  * get Login User Information
+  * */
   login(payLoad){
     return this.http.post<any>(CONFIG.userLogin, payLoad).pipe(map(user => {
       return user;
     }));
   }
 
+  /*
+  * User LogOut
+  * */
   signOut(){
     localStorage.removeItem('userId');
     localStorage.removeItem('token');
