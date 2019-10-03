@@ -1,9 +1,9 @@
-import {Component, OnInit, TemplateRef} from '@angular/core';
+import {Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {ApiServiceService} from "../../../_service/api-service.service";
 import {ToastrService} from "ngx-toastr";
 import {Subject} from "rxjs/index";
 import {BsModalRef, BsModalService} from "ngx-bootstrap";
-import {first} from "rxjs/internal/operators/first";
+import {DataTableDirective} from "angular-datatables/index";
 
 @Component({
   selector: 'app-user-list',
@@ -11,6 +11,9 @@ import {first} from "rxjs/internal/operators/first";
   styleUrls: ['./user-list.component.css']
 })
 export class UserListComponent implements OnInit {
+  @ViewChild(DataTableDirective, {static: false})
+  dtElement: DataTableDirective;
+
 
   userDetails: any;
   userId: number = null;
@@ -20,14 +23,22 @@ export class UserListComponent implements OnInit {
   lastName: string = '';
 
   modalRef: BsModalRef;
-
-  dtTrigger: Subject<any> = new Subject();
   dtOptions: DataTables.Settings = {};
+  dtTrigger: Subject<any> = new Subject();
 
   constructor(private apiService: ApiServiceService,
               private toaster: ToastrService,
               private modelService: BsModalService
   ) { }
+
+  rerender(): void {
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      // Destroy the table first
+      dtInstance.draw();
+      // Call the dtTrigger to rerender again
+      this.dtTrigger.next();
+    });
+  }
 
   ngOnInit() {
 
@@ -53,8 +64,8 @@ export class UserListComponent implements OnInit {
         "emptyTable": 'No data!'
       },
       ajax: (dataTablesParameters: any, callback) => {
-        that.apiService.getUser(Object.assign(dataTablesParameters, {})).subscribe(result => {
-          that.spinner = false;
+        this.apiService.getUser(Object.assign(dataTablesParameters, {})).subscribe(result => {
+          this.spinner = false;
           if(result){
             if(result['meta'].status_code == 200){
               that.userDetails = result['data'].userDetails['original'].data;
@@ -107,9 +118,11 @@ export class UserListComponent implements OnInit {
       this.spinner = false;
       if(this.status == "1"){
         this.toaster.success("User Activate Successfully");
+        this.rerender();
       }
       if(this.status == "0"){
         this.toaster.success('User DeActivate Successfully');
+        this.rerender();
       }
     }, error => {
       this.spinner = false;

@@ -1,4 +1,4 @@
-import {Component, OnInit, TemplateRef} from '@angular/core';
+import {Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {Router} from "@angular/router";
 import {ApiServiceService} from "../../../_service/api-service.service";
 import {ToastrService} from "ngx-toastr";
@@ -13,6 +13,9 @@ import {DataTableDirective} from "angular-datatables/index";
   styleUrls: ['./list-sub-admin.component.css']
 })
 export class ListSubAdminComponent implements OnInit {
+
+  @ViewChild(DataTableDirective, {static: false})
+  dtElement: DataTableDirective;
 
   userDetails: any;
   userId: number;
@@ -30,6 +33,15 @@ export class ListSubAdminComponent implements OnInit {
               private toaster: ToastrService,
               private modalService: BsModalService
   ) { }
+
+  rerender(): void {
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      // Destroy the table first
+      dtInstance.draw();
+      // Call the dtTrigger to rerender again
+      this.dtTrigger.next();
+    });
+  }
 
   ngOnInit() {
 
@@ -112,9 +124,11 @@ export class ListSubAdminComponent implements OnInit {
       this.spinner = false;
       if(this.status == "1"){
         this.toaster.success("User Activate Successfully");
+        this.rerender();
       }
       if(this.status == "0"){
         this.toaster.success('User DeActivate Successfully');
+        this.rerender();
       }
     }, error => {
       this.spinner = false;
