@@ -48,7 +48,7 @@ export class ListSubAdminComponent implements OnInit {
       pagingType: 'full_numbers',
       pageLength: 2,
       serverSide: true,
-      searching: true,
+      searching: false,
       responsive: true,
       processing: true,
       language: {
@@ -60,7 +60,6 @@ export class ListSubAdminComponent implements OnInit {
           if(result){
             if(result['meta'].status_code == 200){
               that.userDetails = result['data'].userDetails.original.data;
-              console.log(this.userDetails);
               callback({
                 recordsTotal: result['data'].userDetails.original.recordsTotal,
                 recordsFiltered: result['data'].userDetails.original.recordsFiltered,
