@@ -3,6 +3,7 @@ import {AuthServiceService} from "../../_service/auth-service.service";
 import {Router} from "@angular/router";
 import {first} from "rxjs/internal/operators/first";
 import {ToastrService} from "ngx-toastr";
+import {ApiServiceService} from "../../_service/api-service.service";
 
 @Component({
   selector: 'app-login',
@@ -14,7 +15,8 @@ export class LoginComponent implements OnInit {
   spinner: boolean;
 
   constructor(private authService: AuthServiceService, private router: Router,
-              private toaster: ToastrService
+              private toaster: ToastrService,
+              private apiService: ApiServiceService
   ) { }
 
   ngOnInit() {
@@ -26,20 +28,27 @@ export class LoginComponent implements OnInit {
       if(result){
         this.spinner = false;
         if(result['meta'].status_code == 200){
-          this.toaster.success('User Login Successfully');
           localStorage.setItem('token', result['data'].data.token);
-          localStorage.setItem('userName', result['data'].data.userName);
-          localStorage.setItem('userId', result['data'].data.userId);
-          localStorage.setItem('role', result['data'].data.role);
-          this.router.navigate(['/subadmin/list']);
-        }
-        else{
-          this.toaster.error("!Opps Some Error Occurs")
+          this.apiService.getUserById(result['data'].data.userId).subscribe(data => {
+            if(data['data'].userDetails.status == 0){
+              this.toaster.error("You can not Approved");
+              this.router.navigate(['/login']);
+            }
+            else{
+              localStorage.setItem('userName', result['data'].data.userName);
+              localStorage.setItem('userId', result['data'].data.userId);
+              localStorage.setItem('role', result['data'].data.role);
+              this.toaster.success('User Login Successfully');
+              this.router.navigate(['/subadmin/list']);
+            }
+          }, error => {
+            this.toaster.error(error['meta'].message);
+          });
         }
       }
     }, error => {
       this.spinner = false;
-      this.toaster.error(error);
+      this.toaster.error(error['meta'].message);
     })
   }
 
