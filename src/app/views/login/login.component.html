@@ -15,9 +15,10 @@
             <div class="alert alert-danger" *ngIf="loginForm.submitted && email.invalid">
                 <div *ngIf="email.errors.required">Please Enter Email</div>
             </div>
-            <input type="password" id="inputPassword" class="form-control" placeholder="Password" required name="password" #password="ngModel" [(ngModel)]="userPassword">
+            <input type="password" id="inputPassword" class="form-control" placeholder="Password" required name="password" #password="ngModel" [(ngModel)]="userPassword" minlength="6">
             <div class="alert alert-danger" *ngIf="loginForm.submitted && password.invalid">
                 <div *ngIf="password.errors.required">Please Enter a Password</div>
+                <div *ngIf="password.errors.minlength">Password length should be minimum 6 character</div>
             </div>
             <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Sign in</button>
         </form><!-- /form -->

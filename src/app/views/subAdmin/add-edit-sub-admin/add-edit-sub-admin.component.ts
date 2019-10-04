@@ -12,4 +12,8 @@ export class AddEditSubAdminComponent implements OnInit {
   ngOnInit() {
   }
 
+  onSubmit(payLoad){
+    console.log(payLoad);
+  }
+
 }

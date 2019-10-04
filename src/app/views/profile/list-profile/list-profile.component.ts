@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ApiServiceService} from "../../../_service/api-service.service";
 import {ToastrService} from "ngx-toastr";
+import {Router, ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-list-profile',
@@ -14,7 +15,8 @@ export class ListProfileComponent implements OnInit {
   spinner: boolean = true;
 
   constructor( private apiService: ApiServiceService,
-               private toaster: ToastrService
+               private toaster: ToastrService,
+               private route: ActivatedRoute
   ) { }
 
   ngOnInit() {
@@ -30,7 +32,7 @@ export class ListProfileComponent implements OnInit {
         this.toaster.error(error);
       });
     }
-    
+
   }
 
 }

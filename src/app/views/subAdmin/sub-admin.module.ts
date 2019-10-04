@@ -7,14 +7,18 @@ import {ListSubAdminComponent} from "./list-sub-admin/list-sub-admin.component";
 import {DataTablesModule} from "angular-datatables/index";
 import {BsModalService, ModalModule} from "ngx-bootstrap";
 import { AddEditSubAdminComponent } from './add-edit-sub-admin/add-edit-sub-admin.component';
+import {CKEditorModule} from "ngx-ckeditor";
+import { ListProfileSubAdminComponent } from './list-profile-sub-admin/list-profile-sub-admin.component';
+
 
 
 @NgModule({
-  declarations: [SubAdminComponent, ListSubAdminComponent, AddEditSubAdminComponent],
+  declarations: [SubAdminComponent, ListSubAdminComponent, AddEditSubAdminComponent, ListProfileSubAdminComponent],
   imports: [
     CommonModule,
     SubAdminRoutingModule,
     DataTablesModule,
+    CKEditorModule,
     ModalModule.forRoot(),
   ]
 })

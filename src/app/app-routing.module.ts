@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import {DefaultLayoutComponent} from "./container/default-layout/default-layout.component";
 import {LoginComponent} from "./views/login/login.component";
 import {AuthguardGuard} from "./_guard/authguard.guard";
+import {SubAdminModule} from "./views/subAdmin/sub-admin.module";
 
 
 const routes: Routes = [
@@ -23,7 +24,7 @@ const routes: Routes = [
     children: [
       {
         path: 'subadmin',
-        loadChildren: './views/subAdmin/sub-admin.module#SubAdminModule'
+        loadChildren: () => import('./views/subAdmin/sub-admin.module').then(mod => SubAdminModule) // lazzy Loading
       },
       {
         path: 'user',
