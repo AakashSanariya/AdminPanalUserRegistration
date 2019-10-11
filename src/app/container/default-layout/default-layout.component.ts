@@ -24,13 +24,13 @@ export class DefaultLayoutComponent implements OnInit {
     }
     if(localStorage.getItem('role')){
       this.userRole = localStorage.getItem('role');
-      if(this.userRole == 'SuperAdmin'){
+      if(this.userRole === 'SuperAdmin'){
         this.permissionService.loadPermissions(['SUPER_ADMIN', 'ADMIN', 'USER']);
       }
-      if(this.userRole == 'Admin'){
+      if(this.userRole === 'Admin'){
         this.permissionService.loadPermissions(['ADMIN', 'USER']);
       }
-      else{
+      if(this.userRole === 'User'){
         this.permissionService.loadPermissions(['USER']);
       }
     }
