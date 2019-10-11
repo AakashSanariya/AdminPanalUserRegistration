@@ -28,6 +28,7 @@ export class AuthServiceService {
     localStorage.removeItem('userId');
     localStorage.removeItem('token');
     localStorage.removeItem('userName');
+    localStorage.removeItem('role');
     this.toaster.success("Logout Successfully.");
     this.router.navigate(['/login']);
   }

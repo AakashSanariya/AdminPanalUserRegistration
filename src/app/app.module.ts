@@ -14,6 +14,7 @@ import {FormsModule} from "@angular/forms";
 import {DataTablesModule} from "angular-datatables/index";
 import {AngularFontAwesomeModule} from "angular-font-awesome";
 import {ModalModule} from "ngx-bootstrap";
+import {NgxPermissionsModule} from "ngx-permissions";
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import {ModalModule} from "ngx-bootstrap";
     AngularFontAwesomeModule,
     ToastrModule.forRoot(),
     ModalModule.forRoot(),
+    NgxPermissionsModule.forRoot(),
   ],
   providers: [
     AuthguardGuard,

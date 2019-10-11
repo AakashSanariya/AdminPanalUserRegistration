@@ -1,15 +1,15 @@
 <div *ngIf="spinner; loaded">
     <div id="overlay">
-        <div class="spinner"></div>
-        <br/>
-        Loading...
+        <div id="preloader">
+            <div id="loader"></div>
+        </div>
     </div>
 </div>
 <div class="container" #loaded>
     <h2>Profile</h2>
     <div class="card border-warning col-8" *ngIf="userDetails">
         <br>
-        <img class="card-img-top border border-primary" src="{{'http://192.168.10.184/UserRegistration/public/' +  userDetails.image }}" alt="{{ userDetails.image }}" style="width:25%">
+        <img class="card-img-top border border-primary" src="{{'http://192.168.11.20/UserRegistration/public/' +  userDetails.image }}" alt="{{ userDetails.image }}" style="width:25%">
         <div class="card-body">
             <h3 class="card-title"><i class="fa fa-user-circle-o" aria-hidden="true"></i> {{ userDetails.firstName }} {{ userDetails.lastName }}</h3>
             <div class="row">

@@ -1,6 +1,7 @@
 import {Component, OnInit, TemplateRef} from '@angular/core';
 import {AuthServiceService} from "../../_service/auth-service.service";
 import {BsModalRef, BsModalService} from "ngx-bootstrap";
+import {NgxPermissionsService} from "ngx-permissions";
 
 @Component({
   selector: 'app-default-layout',
@@ -9,7 +10,9 @@ import {BsModalRef, BsModalService} from "ngx-bootstrap";
 })
 export class DefaultLayoutComponent implements OnInit {
 
-  constructor(private authService: AuthServiceService, private modalService: BsModalService) { }
+  constructor(private authService: AuthServiceService, private modalService: BsModalService,
+              private permissionService: NgxPermissionsService
+  ) { }
 
   userName: string;
   userRole: string;
@@ -21,6 +24,15 @@ export class DefaultLayoutComponent implements OnInit {
     }
     if(localStorage.getItem('role')){
       this.userRole = localStorage.getItem('role');
+      if(this.userRole == 'SuperAdmin'){
+        this.permissionService.loadPermissions(['SUPER_ADMIN', 'ADMIN', 'USER']);
+      }
+      if(this.userRole == 'Admin'){
+        this.permissionService.loadPermissions(['ADMIN', 'USER']);
+      }
+      else{
+        this.permissionService.loadPermissions(['USER']);
+      }
     }
   }
 

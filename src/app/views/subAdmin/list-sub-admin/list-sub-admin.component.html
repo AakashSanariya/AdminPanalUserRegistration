@@ -1,11 +1,11 @@
 <div *ngIf="spinner; loaded">
     <div id="overlay">
-        <div class="spinner"></div>
-        <br/>
-        Loading...
+        <div id="preloader">
+            <div id="loader"></div>
+        </div>
     </div>
 </div>
-<div style="text-align: center"><h2>List user</h2></div>
+<div style="text-align: center"><h2>List Sub Admin</h2></div>
 <!--<button class="btn btn-primary float-right" routeLink="userprofile/"><i class="fa fa fa-plus-square-o"></i> Add Sub Admin</button><br>-->
 <div class="container table table-responsive mt-3">
     <div class="table table-responsive">
@@ -28,7 +28,7 @@
                 <td class="text-primary"><a href="" [routerLink]="['/subadmin/view', user.id]">{{ user['firstName'] }}</a></td>
                 <td>{{ user['lastName'] }}</td>
                 <td>{{ user['email'] }}</td>
-                <td><img src="{{'http://192.168.10.184/UserRegistration/public/' +  user['image']  }}" width="50px" height="50px" class="rounded-pill"></td>
+                <td><img src="{{'http://192.168.11.20/UserRegistration/public/' +  user['image']  }}" width="50px" height="50px" class="rounded-pill"></td>
                 <td *ngIf="user['status'] == 0"><button class="btn btn-outline-info" (click)="openModal(statusModel, user['id'], user['status'])">Activate</button></td>
                 <td *ngIf="user['status'] == 1"><button class="btn btn-outline-danger" (click)="openModal(statusModel, user['id'], user['status'])">DeActivate</button></td>
                <!-- <td><button class="btn btn-warning" (click)="editUser(user)">Edit</button></td>

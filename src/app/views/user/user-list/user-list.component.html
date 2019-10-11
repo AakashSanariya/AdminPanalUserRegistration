@@ -1,8 +1,8 @@
 <div *ngIf="spinner; loaded">
     <div id="overlay">
-        <div class="spinner"></div>
-        <br/>
-        Loading...
+        <div id="preloader">
+            <div id="loader"></div>
+        </div>
     </div>
 </div>
 <div style="text-align: center"><h2>List user</h2></div>
@@ -28,7 +28,7 @@
                 <td><a href="" [routerLink]="['/user/profile', user['id']]">{{ user['firstName'] }}</a></td>
                 <td>{{ user['lastName'] }}</td>
                 <td>{{ user['email'] }}</td>
-                <td><img src="{{'http://192.168.10.184/UserRegistration/public/' +  user['image']  }}" width="50px" height="50px" class="rounded-pill"></td>
+                <td><img src="{{'http://192.168.11.20/UserRegistration/public/' +  user['image']  }}" width="50px" height="50px" class="rounded-pill"></td>
                 <td *ngIf="user['status'] == 0"><button class="btn btn-outline-info" (click)="openModal(statusModel, user['id'], user['status'])">Activate</button></td>
                 <td *ngIf="user['status'] == 1"><button class="btn btn-outline-danger" (click)="openModal(statusModel, user['id'], user['status'])">DeActivate</button></td>
                 <!-- <td><button class="btn btn-warning" (click)="editUser(user)">Edit</button></td>
