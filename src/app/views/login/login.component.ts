@@ -4,6 +4,8 @@ import {Router} from "@angular/router";
 import {first} from "rxjs/internal/operators/first";
 import {ToastrService} from "ngx-toastr";
 import {ApiServiceService} from "../../_service/api-service.service";
+import {CookieService} from "ngx-cookie-service";
+import {Time} from "ngx-bootstrap/timepicker/timepicker.models";
 
 @Component({
   selector: 'app-login',
@@ -16,7 +18,8 @@ export class LoginComponent implements OnInit {
 
   constructor(private authService: AuthServiceService, private router: Router,
               private toaster: ToastrService,
-              private apiService: ApiServiceService
+              private apiService: ApiServiceService,
+              private cookieService: CookieService
   ) { }
 
   ngOnInit() {
@@ -39,6 +42,13 @@ export class LoginComponent implements OnInit {
               localStorage.setItem('userId', result['data'].data.userId);
               localStorage.setItem('role', result['data'].data.role);
               this.toaster.success('User Login Successfully');
+
+              /* Set Cookies User Name And Role*/
+              var ceDate: Date = new Date();
+              ceDate.setMinutes(ceDate.getMinutes() + 5);
+              this.cookieService.set('Name', result['data'].data.userName, ceDate);
+              this.cookieService.set('Role', result['data'].data.role, ceDate);
+
               this.router.navigate(['/subadmin/list']);
             }
           }, error => {

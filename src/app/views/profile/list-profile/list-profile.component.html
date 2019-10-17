@@ -1,26 +1,30 @@
-<div *ngIf="spinner; loaded">
-    <div id="overlay">
-        <div id="preloader">
-            <div id="loader"></div>
+<div class="card">
+    <div class="card-body">
+    <div *ngIf="spinner; loaded">
+        <div id="overlay">
+            <div id="preloader">
+                <div id="loader"></div>
+            </div>
         </div>
     </div>
-</div>
-<div class="container" #loaded>
-    <h2>Profile</h2>
-    <div class="card border-warning col-8" *ngIf="userDetails">
-        <br>
-        <img class="card-img-top border border-primary" src="{{'http://192.168.11.20/UserRegistration/public/' +  userDetails.image }}" alt="{{ userDetails.image }}" style="width:25%">
-        <div class="card-body">
-            <h3 class="card-title"><i class="fa fa-user-circle-o" aria-hidden="true"></i> {{ userDetails.firstName }} {{ userDetails.lastName }}</h3>
-            <div class="row">
-                <h6 class="card-text col-6 text-info"><i class="fa fa-envelope-o text-dark" aria-hidden="true"></i><b class="text-dark"> Email:</b> {{ userDetails.email }}</h6>
-                <h6 class="card-text col-6 text-info"><i class="fa fa-calendar text-dark" aria-hidden="true"></i> <b class="text-dark"> Dob:</b> {{ userDetails.DOB }}</h6>
-            </div>
-            <div class="row">
-                <h6 class="card-text col-6 text-info" *ngIf="userDetails.gender == '1'"><i class="fa fa-male text-dark" aria-hidden="true"></i> <b class="text-dark"> Gender:</b> Male</h6>
-                <h6 class="card-text col-6 text-info" *ngIf="userDetails.gender == '0'"><i class="fa fa-female text-dark" aria-hidden="true"></i> <b class="text-dark"> Gender:</b> Female</h6>
-                <h6 class="card-text col-6 text-info"><i class="fa fa-phone text-dark" aria-hidden="true"></i> <b class="text-dark"> MobileNo:</b> {{ userDetails.mobileNo }}</h6>
+    <div class="container" #loaded>
+        <h2>Profile</h2>
+        <div class="card border-warning col-8" *ngIf="userDetails">
+            <br>
+            <img class="card-img-top border border-primary" src="{{'http://192.168.11.20/UserRegistration/public/' +  userDetails.image }}" alt="{{ userDetails.image }}" style="width:25%">
+            <div class="card-body">
+                <h3 class="card-title"><i class="fa fa-user-circle-o" aria-hidden="true"></i> {{ userDetails.firstName }} {{ userDetails.lastName }}</h3>
+                <div class="row">
+                    <h6 class="card-text col-6 text-info"><i class="fa fa-envelope-o text-dark" aria-hidden="true"></i><b class="text-dark"> Email:</b> {{ userDetails.email }}</h6>
+                    <h6 class="card-text col-6 text-info"><i class="fa fa-calendar text-dark" aria-hidden="true"></i> <b class="text-dark"> Dob:</b> {{ userDetails.DOB }}</h6>
+                </div>
+                <div class="row">
+                    <h6 class="card-text col-6 text-info" *ngIf="userDetails.gender == '1'"><i class="fa fa-male text-dark" aria-hidden="true"></i> <b class="text-dark"> Gender:</b> Male</h6>
+                    <h6 class="card-text col-6 text-info" *ngIf="userDetails.gender == '0'"><i class="fa fa-female text-dark" aria-hidden="true"></i> <b class="text-dark"> Gender:</b> Female</h6>
+                    <h6 class="card-text col-6 text-info"><i class="fa fa-phone text-dark" aria-hidden="true"></i> <b class="text-dark"> MobileNo:</b> {{ userDetails.mobileNo }}</h6>
+                </div>
             </div>
         </div>
+    </div>
     </div>
 </div>

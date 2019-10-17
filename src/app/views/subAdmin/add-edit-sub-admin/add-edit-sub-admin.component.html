@@ -1,6 +1,10 @@
-<div class="container">
-    <form method="post" #addForm="ngForm" (ngSubmit)="onSubmit(addForm.value)">
-        <ck-editor name="editor1" [(ngModel)]="editorValue" skin="moono-lisa" language="en" [fullPage]="true"></ck-editor>
-        <input type="submit" value="Add Sub Admin" class="btn btn-outline-dark">
-    </form>
+<div class="card">
+    <div class="card-body">
+    <div class="container">
+        <form method="post" #addForm="ngForm" (ngSubmit)="onSubmit(addForm.value)">
+            <ck-editor name="editor1" [(ngModel)]="editorValue" skin="moono-lisa" language="en" [fullPage]="true"></ck-editor>
+            <input type="submit" value="Add Sub Admin" class="btn btn-outline-dark">
+        </form>
+    </div>
+    </div>
 </div>

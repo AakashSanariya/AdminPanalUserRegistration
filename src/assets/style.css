@@ -114,3 +114,10 @@
         transform: rotate(360deg);
     }
 }
+.backcolor{
+    background-color: #e4e5e6;
+}
+
+.card-body{
+    background-color: #FFFFFF;
+}

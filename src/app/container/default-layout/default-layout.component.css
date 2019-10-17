@@ -5,10 +5,17 @@ body{background:#f9f9f9;}
 .header-top{box-shadow: 0 3px 5px rgba(125,5,5,.3)}
 @media(min-width:992px) {
     #wrapper{margin-left: 200px;padding: 90px 15px 15px;}
-    .navbar-nav.side-nav{background: #585f66;box-shadow: 2px 1px 2px rgba(0,0,0,.1);position:fixed;top:56px;flex-direction: column!important;left:0;width:200px;overflow-y:auto;bottom:0;overflow-x:hidden;padding-bottom:40px}
+    .navbar-nav.side-nav{background: #343a40;box-shadow: 2px 1px 2px rgba(0,0,0,.1);position:fixed;top:56px;flex-direction: column!important;left:0;width:200px;overflow-y:auto;bottom:0;overflow-x:hidden;padding-bottom:40px}
 }
 
 .active{
     border-bottom: 2px solid coral;
     border-top: 2px solid coral;
+    border-radius: 50px 20px;
+}
+
+.nav-link:hover{
+    border-radius: 50px 20px;
+    display: block;
+    background-color: #FFA200;
 }

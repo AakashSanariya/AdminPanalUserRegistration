@@ -1,6 +1,10 @@
 const BASE_URL = "http://api.userregistration.com/api/";
 
 export const CONFIG = {
+
+    /*
+    * User Api
+    * */
     userLogin: BASE_URL + 'user/login',
     userRegister: BASE_URL + 'user/register',
     allUser: BASE_URL + 'user',
@@ -9,4 +13,13 @@ export const CONFIG = {
     findUserById: BASE_URL + 'user/',
     updateUser: BASE_URL + 'user/update/',
     deleteUser: BASE_URL + 'user',
+
+    /*
+    * Video Api
+    * */
+    listVideo: BASE_URL + 'videolist',
+    video: BASE_URL + 'videoupload',
+    deleteVideo: BASE_URL + 'videoupload/',
+    updateVideo: BASE_URL + 'video/update/',
+    videoFindById: BASE_URL + 'videoupload/'
 }

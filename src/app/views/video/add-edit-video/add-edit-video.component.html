@@ -1,0 +1,47 @@
+<div class="card">
+    <div class="card-body">
+        <form #videoForm="ngForm" (ngSubmit)="videoForm.form.valid && onSubmit(videoForm.value)">
+            <div class="row">
+                <div class="col-6">
+                    <div class="from-group">
+                        <label>Video Name</label>
+                        <input type="text" class="form-control" name="videoName" #videoName="ngModel" [(ngModel)]="editDetails['videoName']" placeholder="please Enter a Video Name" required minlength="3">
+                        <div *ngIf="videoForm.submitted && videoName.invalid" class="alert alert-danger">
+                            <div *ngIf="videoName.errors?.required" ngClass="videoName.errors.required">Video Name is Required</div>
+                            <div *ngIf="videoName.errors?.minlength" ngClass="videoName.errors.minlength">Video Name Should be Minimum 3 Character</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-group">
+                        <label>Video</label>
+                        <div *ngIf="videoShow">
+                            <div>
+                                <video *ngIf="videoShow" id="mainVideo" class="col-12" src="{{ 'http://192.168.11.20/UserRegistration/public/' + editDetails['videoUrl'] }}" controls>
+                                    <source *ngIf="videoShow" [src]="'http://192.168.11.20/UserRegistration/public/' + editDetails['videoUrl']"  type="video/mp4">
+                                    Your browser does not support video.
+                                </video>
+                            </div>
+                            <label class="btn btn-outline-danger col-12" (click)="displayVideo()"><i class="fa fa-times" aria-hidden="true"></i></label>
+                        </div>
+                        <div *ngIf="!videoShow">
+                            <div *ngIf="!videoShow">
+                                <input *ngIf="!videoShow" type="file" class="form-control-file" name="videoup" accept="video/mp4" (change)="videoUpload($event)" required>
+                            </div>
+                            <div *ngIf="videoSizeType" class="alert alert-danger">
+                                <div>Video File Size Less than 2Mb and Video Type Only mp4</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <div class="from-group">
+                        <input class="btn btn-outline-primary" type="submit" value="update & save" *ngIf="!videoSizeType">
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

@@ -4,6 +4,7 @@ import {Title} from "@angular/platform-browser";
 import {mergeMap} from "rxjs/internal/operators/mergeMap";
 import {map} from "rxjs/internal/operators/map";
 import {filter} from "rxjs/internal/operators/filter";
+import {CookieService} from "ngx-cookie-service";
 
 @Component({
   selector: 'app-root',
@@ -11,7 +12,7 @@ import {filter} from "rxjs/internal/operators/filter";
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  title = 'BaseAndemo';
+  title = 'Base Angular Demo';
   constructor(private router: Router,
               private titleService: Title,
               private activatedRoute: ActivatedRoute
@@ -37,7 +38,7 @@ export class AppComponent implements OnInit {
         )
         .subscribe(data => {
           if(data.title){
-            this.titleService.setTitle(data.title);
+            this.titleService.setTitle(this.title + '|' + data.title);
           }
         });
   }

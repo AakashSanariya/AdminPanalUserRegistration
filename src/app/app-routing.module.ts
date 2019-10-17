@@ -33,7 +33,11 @@ const routes: Routes = [
       {
         path: 'profile',
         loadChildren: './views/profile/profile.module#ProfileModule'
-      }
+      },
+      {
+        path: 'video',
+        loadChildren: './views/video/video.module#VideoModule'
+      },
     ]
   }
 ];

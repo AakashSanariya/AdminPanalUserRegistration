@@ -15,6 +15,7 @@ import {DataTablesModule} from "angular-datatables/index";
 import {AngularFontAwesomeModule} from "angular-font-awesome";
 import {ModalModule} from "ngx-bootstrap";
 import {NgxPermissionsModule} from "ngx-permissions";
+import {CookieService} from "ngx-cookie-service";
 
 @NgModule({
   declarations: [
@@ -33,10 +34,12 @@ import {NgxPermissionsModule} from "ngx-permissions";
     ToastrModule.forRoot(),
     ModalModule.forRoot(),
     NgxPermissionsModule.forRoot(),
+    AngularFontAwesomeModule
   ],
   providers: [
     AuthguardGuard,
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    CookieService,
   ],
   bootstrap: [AppComponent]
 })

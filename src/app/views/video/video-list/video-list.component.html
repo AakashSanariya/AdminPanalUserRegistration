@@ -1,0 +1,65 @@
+<div class="card">
+    <div class="card-body">
+    <div *ngIf="spinner; loaded">
+        <div id="overlay">
+            <div id="preloader">
+                <div id="loader"></div>
+            </div>
+        </div>
+    </div>
+    <div style="text-align: center"><h2>List Of Video</h2></div>
+    <button class="btn btn-outline-primary float-right" routerLink="/video/addvideo"><i class="fa fa fa-plus-square-o"></i> Add New Video</button><br>
+    <div class="container table table-responsive mt-3">
+        <div class="table table-responsive">
+            <table datatable [dtOptions]="dtOptions" class="hover table table-bordered" #loaded>
+                <thead class="thead-light">
+                <tr>
+                    <th>No</th>
+                    <th>video Name</th>
+                    <th>Video</th>
+                    <!--<th>Edit</th>
+                    <th>Delete</th>-->
+                </tr>
+                </thead>
+                <tbody *ngIf="videoList?.length != 0">
+                <tr *ngFor="let video of (videoList); let i = index">
+                    <td>{{ i+1 }}</td>
+                    <td class="text-primary"><a href="#" [routerLink]="['/video/editvideo', video['id']]">{{ video['videoName'] }}</a></td>
+                    <td width="320" height="240">
+                        <video width="320" height="240" controls>
+                            <source src="{{ 'http://192.168.11.20/UserRegistration/public/' + video['videoUrl'] }}" type="video/mp4">
+                            Sorry, your browser doesn't support embedded videos.
+                        </video>
+                    </td>
+    <!--                <td *ngIf="user['status'] == 0"><button class="btn btn-outline-info" (click)="openModal(statusModel, user['id'], user['status'])">Activate</button></td>
+                    <td *ngIf="user['status'] == 1"><button class="btn btn-outline-danger" (click)="openModal(statusModel, user['id'], user['status'])">DeActivate</button></td>-->
+                </tr>
+                </tbody>
+                <tbody *ngIf="videoList?.length == 0">
+                <tr>
+                    <td colspan="6" class="no-data-available">No Data Available</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <ng-template #statusModel>
+        <div class="modal-content">
+            <div class="modal-header bg-primary">
+                <h5 class="modal-title"><i class="fa fa-info-circle modal-icon"></i> Confirmation</h5>
+                <button type="button" class="close" (click)="decline()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body text-center">
+                <p>Are you sure you want to change status?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" (click)="changeStatus()">Yes</button>
+                <button type="button" class="btn btn-default" (click)="decline()">No</button>
+            </div>
+        </div>
+    </ng-template>
+    </div>
+</div>
