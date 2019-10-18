@@ -1,5 +1,10 @@
 <div class="card">
     <div class="card-body">
+        <div class="row">
+            <div class="col">
+                <button class="float-right btn btn-outline-dark" routerLink="/video/list"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back Video List</button>
+            </div>
+        </div>
         <form #videoForm="ngForm" (ngSubmit)="videoForm.form.valid && onSubmit(videoForm.value)">
             <div class="row">
                 <div class="col-6">

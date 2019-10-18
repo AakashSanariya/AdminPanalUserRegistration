@@ -4,6 +4,7 @@ import {ToastrService} from "ngx-toastr";
 import {Subject} from "rxjs/index";
 import {BsModalRef, BsModalService} from "ngx-bootstrap";
 import {DataTableDirective} from "angular-datatables/index";
+import {ConfigConstant} from "../../../config/config-constant";
 
 @Component({
   selector: 'app-user-list',
@@ -60,6 +61,7 @@ export class UserListComponent implements OnInit {
       serverSide: true,
       searching: false,
       processing: true,
+      dom: ConfigConstant.dataTablePagination,
       language: {
         "emptyTable": 'No data!'
       },

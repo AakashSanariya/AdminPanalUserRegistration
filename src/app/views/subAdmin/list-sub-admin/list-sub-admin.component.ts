@@ -6,6 +6,7 @@ import {Subject} from "rxjs/index";
 import {first} from "rxjs/internal/operators/first";
 import {BsModalService, BsModalRef} from "ngx-bootstrap";
 import {DataTableDirective} from "angular-datatables/index";
+import {ConfigConstant} from "../../../config/config-constant";
 
 @Component({
   selector: 'app-list-sub-admin',
@@ -63,6 +64,7 @@ export class ListSubAdminComponent implements OnInit {
       searching: false,
       responsive: true,
       processing: true,
+      dom: ConfigConstant.dataTablePagination,
       language: {
         "emptyTable": 'No data!'
       },

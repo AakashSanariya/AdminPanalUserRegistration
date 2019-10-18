@@ -5,6 +5,7 @@ import {ApiVideoServiceService} from "../../../_service/api-video-service.servic
 import {Subject} from "rxjs/index";
 import {BsModalRef} from "ngx-bootstrap";
 import {DataTableDirective} from "angular-datatables/index";
+import {ConfigConstant} from "../../../config/config-constant";
 
 @Component({
   selector: 'app-video-list',
@@ -43,6 +44,7 @@ export class VideoListComponent implements OnInit {
       searching: false,
       responsive: true,
       processing: true,
+      dom: ConfigConstant.dataTablePagination,
       language: {
         "emptyTable": "No data!"
       },
