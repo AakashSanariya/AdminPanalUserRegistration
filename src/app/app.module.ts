@@ -16,6 +16,8 @@ import {AngularFontAwesomeModule} from "angular-font-awesome";
 import {ModalModule} from "ngx-bootstrap";
 import {NgxPermissionsModule} from "ngx-permissions";
 import {CookieService} from "ngx-cookie-service";
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { MustMatchDirective } from './_helper/must-match.directive';
 
 @NgModule({
   declarations: [
@@ -34,7 +36,8 @@ import {CookieService} from "ngx-cookie-service";
     ToastrModule.forRoot(),
     ModalModule.forRoot(),
     NgxPermissionsModule.forRoot(),
-    AngularFontAwesomeModule
+    AngularFontAwesomeModule,
+    BsDatepickerModule.forRoot(),
   ],
   providers: [
     AuthguardGuard,

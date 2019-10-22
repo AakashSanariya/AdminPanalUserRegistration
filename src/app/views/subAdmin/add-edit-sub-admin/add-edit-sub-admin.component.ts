@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {BsDatepickerConfig} from "ngx-bootstrap/datepicker";
 
 @Component({
   selector: 'app-add-edit-sub-admin',
@@ -7,7 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AddEditSubAdminComponent implements OnInit {
 
-  constructor() { }
+  colorTheme = 'theme-dark-blue'
+  bsConfig: Partial<BsDatepickerConfig>;
+  editDetails: any = {};
+
+  constructor() {
+    this.bsConfig = Object.assign({ dateInputFormat: 'DD/MM/YYYY' }, { containerClass: this.colorTheme }, { isAnimated: true });
+  }
 
   ngOnInit() {
   }

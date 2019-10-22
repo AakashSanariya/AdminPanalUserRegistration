@@ -26,7 +26,7 @@ const routes: Routes = [
         canActivate: [AdminGuardGuard]
       },
       {
-        path: 'add',
+        path: 'addsubadmin',
         component: AddEditSubAdminComponent,
         data: {
           title: 'Add Sub Admin',

@@ -21,5 +21,7 @@ export const CONFIG = {
     video: BASE_URL + 'videoupload',
     deleteVideo: BASE_URL + 'videoupload/',
     updateVideo: BASE_URL + 'video/update/',
-    videoFindById: BASE_URL + 'videoupload/'
+    videoFindById: BASE_URL + 'videoupload/',
+
+    chunkVideo: BASE_URL + 'chunkvideo',
 }

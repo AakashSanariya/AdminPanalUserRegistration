@@ -5,7 +5,7 @@
                 <button class="float-right btn btn-outline-dark" routerLink="/video/list"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back Video List</button>
             </div>
         </div>
-        <form #videoForm="ngForm" (ngSubmit)="videoForm.form.valid && onSubmit(videoForm.value)">
+        <form #videoForm="ngForm" enctype="multipart/form-data" method="POST" (ngSubmit)="videoForm.form.valid && onSubmit(videoForm.value)">
             <div class="row">
                 <div class="col-6">
                     <div class="from-group">
@@ -29,9 +29,22 @@
                             </div>
                             <label class="btn btn-outline-danger col-12" (click)="displayVideo()"><i class="fa fa-times" aria-hidden="true"></i></label>
                         </div>
-                        <div *ngIf="!videoShow">
-                            <div *ngIf="!videoShow">
-                                <input *ngIf="!videoShow" type="file" class="form-control-file" name="videoup" accept="video/mp4" (change)="videoUpload($event)" required>
+                        <div class="videoHideOnExit">
+                            <div>
+                                <input type="file" name="file" id="fileSelect" >
+                                <input type="hidden" name="videoUrl" #videoUrl="ngModel" [(ngModel)]="hideVideo">
+                                <!--<input *ngIf="!videoShow" id="fileSelect" type="file" class="form-control-file" name="videoup" accept="video/mp4" (change)="videoUpload($event)" required>-->
+                            </div>
+                            <br>
+                            <div class="videoUploadProgress" style="display: none;">
+                                <div class="progressBarDiv">
+                                    <div class="progress progress-bar-striped progress-bar-animated" id="ProdVideW" style="background-color: lightseagreen"></div>
+                                    <span class="progressValue" id="ProdVideV"></span>
+                                    <!-- <span class="cancleUpload">X</span> -->
+                                </div>
+                            </div>
+                            <div class="alert alert-danger" *ngIf="videoUrl.errors && videoForm.submitted">
+                                <p *ngIf="videoUrl.errors.required">Please upload video</p>
                             </div>
                             <div *ngIf="videoSizeType" class="alert alert-danger">
                                 <div>Video File Size Less than 2Mb and Video Type Only mp4</div>

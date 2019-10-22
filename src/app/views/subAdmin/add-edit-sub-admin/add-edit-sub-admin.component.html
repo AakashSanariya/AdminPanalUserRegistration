@@ -1,10 +1,123 @@
 <div class="card">
     <div class="card-body">
-    <div class="container">
+    <!--<div class="container">
         <form method="post" #addForm="ngForm" (ngSubmit)="onSubmit(addForm.value)">
             <ck-editor name="editor1" [(ngModel)]="editorValue" skin="moono-lisa" language="en" [fullPage]="true"></ck-editor>
             <input type="submit" value="Add Sub Admin" class="btn btn-outline-dark">
         </form>
-    </div>
+    </div>-->
+        <form #subForm="ngForm" (ngSubmit)="subForm.form.valid && onSubmit(subForm.value)" enctype="multipart/form-data" [mustMatch]="['password', 'confirmPassword']">
+            <div>
+            <div class="row">
+                <div class="col-6">
+                    <div class="from-group">
+                        <label>First Name</label>
+                        <input type="text" class="form-control" name="firstName" #firstName="ngModel" [(ngModel)]="editDetails['firstName']" placeholder="Please Enter a First Name" required minlength="3">
+                        <div *ngIf="subForm.submitted && firstName.invalid" class="alert alert-danger">
+                            <div *ngIf="firstName.errors?.required" ngClass="firstName.errors.required">First Name is Required</div>
+                            <div *ngIf="firstName.errors?.minlength" ngClass="firstName.errors.minlength">First Name Should be Minimum 3 Character</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-group">
+                        <label>Last Name</label>
+                        <input type="text" class="form-control" name="lastName" #lastName="ngModel" [(ngModel)]="editDetails['lastName']" placeholder="Please Enter a Last Name" required minlength="3">
+                        <div *ngIf="subForm.submitted && lastName.invalid" class="alert alert-danger">
+                            <div *ngIf="lastName.errors?.required" ngClass="lastName.errors.required">Last Name is Required</div>
+                            <div *ngIf="lastName.errors?.minlength" ngClass="lastName.errors.minlength">Last Name Should be Minimum 3 Character</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <div class="from-group">
+                        <label>Email</label>
+                        <input type="email" class="form-control" name="email" #email="ngModel" [(ngModel)]="editDetails['email']" placeholder="Please Enter a email" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$">
+                        <div *ngIf="subForm.submitted && email.invalid" class="alert alert-danger">
+                            <div *ngIf="email.errors?.required" ngClass="email.errors.required">Email is Required</div>
+                            <div *ngIf="email.errors?.pattern" ngClass="email.errors.pattern">Email Should be Valid</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-group">
+                        <label>Date Of Birth</label>
+                        <input type="text" class="form-control" #DOB="bsDatepicker"  bsDatepicker  [bsValue]="bsValue" name="DOB" [(ngModel)]="editDetails['DOB']"
+                               placeholder="DD/MM/YYYY"
+                               [bsConfig]="bsConfig"
+                               autocomplete="off"
+                               required
+                        >
+                    </div>
+                    <div *ngIf="subForm.submitted && DOB.invalid" class="alert alert-danger">
+                        <div ngClass="DOB.errors.required">Please Select a Date</div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <div class="from-group">
+                        <label>Mobile Number</label>
+                        <input type="text" class="form-control" name="mobileNo" #mobileNo="ngModel" [(ngModel)]="editDetails['mobileNo']" placeholder="Please Enter a Mobile No" required maxlength="10" minlength="10">
+                        <div *ngIf="subForm.submitted && mobileNo.invalid" class="alert alert-danger">
+                            <div *ngIf="mobileNo.errors?.required" ngClass="mobileNo.errors.required">Email is Required</div>
+                            <div *ngIf="mobileNo.errors?.minlength" ngClass="mobileNo.errors.minlength">Mobile Number Length Should be 10 character</div>
+                            <div *ngIf="mobileNo.errors?.maxlength" ngClass="mobileNo.errors.maxlength">Mobile Number Length Should be 10 character</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <label>Gender</label>
+                    <div>
+                    <div class="form-check-inline">
+                        <div class="custom-control custom-radio">
+                            <input type="radio" class="custom-control-input" name="gender" #gender="ngModel" id="customMale" [(ngModel)]="editDetails['gender']" value="1" required>
+                            <label class="custom-control-label" for="customMale">Male</label>
+                        </div> &nbsp;
+                        <div class="custom-control custom-radio">
+                            <input type="radio" class="custom-control-input" name="gender" id="customFemale" #gender="ngModel" [(ngModel)]="editDetails['gender']" value="0" required>
+                            <label class="custom-control-label" for="customFemale">Female</label>
+                        </div>
+                    </div>
+                    </div>
+                    <div *ngIf="subForm.submitted && gender.invalid" class="alert alert-danger">
+                        <div *ngIf="gender.errors?.required" ngClass="gender.errors.required">Please Select a Gender</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-6">
+                    <div class="from-group">
+                        <label>Password</label>
+                        <input type="password" class="form-control" name="password" #password="ngModel" [(ngModel)]="editDetails['password']" placeholder="Please Enter a Password" required pattern="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#$%])(?=[^^&*()_\+]*$).{6,}" required minlength="6">
+                        <div *ngIf="subForm.submitted && password.invalid" class="alert alert-danger">
+                            <div *ngIf="password.errors?.required" ngClass="password.errors.required">Password is Required</div>
+                            <div *ngIf="password.errors?.required" ngClass="password.errors.minlength">Password Length Should be minimum 6 character</div>
+                            <div *ngIf="password.errors?.pattern" ngClass="password.errors.pattern">Password Contain a One Small and Capital And number and special character not Contain ^&*()_+</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="from-group">
+                        <label>Confirm Password</label>
+                        <input type="password" class="form-control" name="confirmPassword" #confirmPassword="ngModel" [(ngModel)]="editDetails['confirmPassword']" placeholder="Please Enter a Password" required pattern="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#$%])(?=[^^&*()_\+]*$).{6,}" required minlength="6">
+                        <div *ngIf="subForm.submitted && confirmPassword.invalid" class="alert alert-danger">
+                            <div *ngIf="confirmPassword.errors?.required" ngClass="confirmPassword.errors.required">Confirm Password is Required</div>
+                            <div *ngIf="confirmPassword.errors?.required" ngClass="confirmPassword.errors.minlength">Confirm Pasword Length Should be minimum 6 character</div>
+                            <div *ngIf="password.errors?.pattern" ngClass="password.errors.pattern">Password Contain a One Small and Capital And number and special character not Contain ^&*()_+</div>
+                            <div *ngIf="confirmPassword.errors?.mustMatch" ngClass="confirmPassword.errors.mustMatch">Confirm Pasword  and Password are Not Matched</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+            <br>
+            <div>
+                <input type="submit" value="Save" class="btn btn-outline-primary">
+            </div>
+        </form>
     </div>
 </div>

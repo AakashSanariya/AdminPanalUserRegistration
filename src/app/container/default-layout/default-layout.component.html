@@ -9,18 +9,21 @@
         <div class="collapse navbar-collapse" id="navbarText">
             <ul class="navbar-nav side-nav">
                 <li class="nav-item" *ngxPermissionsOnly="['SUPER_ADMIN' ,'ADMIN']">
-                    <a class="nav-link" routerLink="/video/list" routerLinkActive="active">Video</a>
+                    <a class="nav-link" routerLink="/video/list" routerLinkActive="active"><i class="fa fa-video-camera" aria-hidden="true"></i> Video</a>
                 </li>
                 <li class="nav-item" *ngxPermissionsOnly="['SUPER_ADMIN']">
-                    <a class="nav-link" routerLink="/subadmin/list" routerLinkActive="active">List Sub Admin
+                    <a class="nav-link" routerLink="/subadmin/list" routerLinkActive="active">
+                        <i class="fa fa-user-o" aria-hidden="true"></i> List Sub Admin
                         <span class="sr-only">(current)</span>
                     </a>
                 </li>
                 <li class="nav-item" *ngxPermissionsOnly="['SUPER_ADMIN' ,'ADMIN']">
-                    <a class="nav-link" routerLink="/user/list" routerLinkActive="active">List User</a>
+                    <a class="nav-link" routerLink="/user/list" routerLinkActive="active">
+                        <i class="fa fa-user" aria-hidden="true"></i> List User</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" routerLink="/profile/profile" routerLinkActive="active">Profile</a>
+                    <a class="nav-link" routerLink="/profile/profile" routerLinkActive="active">
+                        <i class="fa fa-user" aria-hidden="true"></i> Profile</a>
                 </li>
             </ul>
             <ul class="nav navbar-nav navbar-right ml-auto mt-2 mt-lg-0" *ngIf="logOutButtonDisplay()">

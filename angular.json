@@ -28,12 +28,15 @@
               "./node_modules/ngx-toastr/toastr.css",
               "./node_modules/datatables.net-dt/css/jquery.dataTables.css",
               "./node_modules/bootstrap/dist/css/bootstrap.min.css",
-              "./node_modules/font-awesome/css/font-awesome.min.css"
+              "./node_modules/font-awesome/css/font-awesome.min.css",
+              "./node_modules/ngx-bootstrap/datepicker/bs-datepicker.css"
             ],
             "scripts": [
               "./node_modules/jquery/dist/jquery.js",
               "./node_modules/datatables.net/js/jquery.dataTables.js",
-              "./node_modules/bootstrap/dist/js/bootstrap.min.js"
+              "./node_modules/bootstrap/dist/js/bootstrap.min.js",
+              "./node_modules/jquery-ui-dist/jquery-ui.js",
+              "./node_modules/blueimp-file-upload/js/jquery.fileupload.js"
             ]
           },
           "configurations": {
@@ -97,6 +100,8 @@
               "src/assets"
             ],
             "styles": [
+              "./node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "./node_modules/ngx-bootstrap/datepicker/bs-datepicker.css",
               "src/styles.css"
             ],
             "scripts": []
@@ -128,6 +133,7 @@
           }
         }
       }
-    }},
+    }
+  },
   "defaultProject": "BaseAndemo"
 }

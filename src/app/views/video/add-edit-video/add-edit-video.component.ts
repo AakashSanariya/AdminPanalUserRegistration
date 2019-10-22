@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import {Router, ActivatedRoute} from "@angular/router";
 import {ApiVideoServiceService} from "../../../_service/api-video-service.service";
 import {ToastrService} from "ngx-toastr";
+import * as $ from 'jquery';
+import {CONFIG} from "../../../config/config-service";
+import {DomSanitizer} from "@angular/platform-browser";
 
 @Component({
   selector: 'app-add-edit-video',
@@ -18,11 +21,14 @@ export class AddEditVideoComponent implements OnInit {
 
   private editId: string;
   editDetails: any = {};
-  videoUrl: any;
+  videoUrl: any = {};
   oldVideoUrl: any;
   videoShow: boolean;
   spinner: boolean;
   videoSizeType:boolean;
+  jqXHR: any;
+  checkVideo: any;
+  hideVideo: any;
 
   ngOnInit() {
     this.spinner = true;
@@ -34,10 +40,74 @@ export class AddEditVideoComponent implements OnInit {
       }
       else{
         this.videoShow = false;
+        this.videoChunk();
       }
     });
   }
 
+  videoChunk(){
+    let customFile:string = 'video_slider'+"_"+Date.now();
+    const that = this;
+    const $ = window["$"];
+
+    var $fileUpload = $("#fileSelect");
+
+    if($fileUpload.length > 0 && this.videoUrl != null){
+      var progressEle = $(".progressBarDiv .progress");
+      $("#fileSelect").fileupload({
+        url: CONFIG.chunkVideo + '?customFile=' + customFile,
+        maxChunkSize: 5000000,
+        method: "POST",
+
+        progressall: function (e, data) {
+          var progress = Math.round(data.loaded / data.total * 100);
+          progressEle.css('width', progress +  '%');
+          progressEle.siblings('span.progressValue').html('Uploading '+ progress + '%');
+        },
+
+        add: function (e, data) {
+          if(that.videoUrl){
+            $('.videoUploadProgress').show();
+            progressEle.css('width', 0 + '%');
+            progressEle.siblings('span.progressValue').html('0%');
+            that.jqXHR=data.submit();
+          }
+        },
+
+        done: function (e, data) {
+          that.toaster.success("Video Upload Successfully");
+          progressEle.css('width',100 + '%');
+          progressEle.siblings('span.progressValue').html('Uploaded');
+        },
+
+        success: function (data) {
+          if(data){
+            that.checkVideo=data;
+          }
+        },
+        
+        change: function (e, data) {
+          that.changeVideo(data);
+        }
+      });
+    }
+
+  }
+
+  changeVideo(data){
+    let videoType = [ "video/mp4", "video/mpeg4", "video/3gpp"];
+    // if(event.target.files.length > 0){
+    if($.inArray(data.files[0].type, videoType) == 0 && data.files[0].size >= 5000000) {
+      this.videoUpload(data.files[0]);
+    }
+    else{
+      this.toaster.error('Video Type Not Matched and Size Less than 5 Mb');
+      this.videoUrl = null;
+      this.videoSizeType = true;
+    }
+
+  }
+  
   editdetails(){
     this.videoApiService.editVideo(this.editId).subscribe(result => {
       if(result){
@@ -101,19 +171,20 @@ export class AddEditVideoComponent implements OnInit {
     }
 
   }
-  
+
   videoUpload(event){
-    if(event.target.files.length > 0){
-      if(event.target.files[0].type == 'video/mp4' && event.target.files[0].size < 2097152){
+    let videoType = [ "video/mp4", "video/webm", "video/3gpp"];
+    // if(event.target.files.length > 0){
+      if($.inArray(event.type, videoType) == 0 && event.size >= 5000000){
         this.videoSizeType = false;
-        this.videoUrl = event.target.files[0];
-        this.toaster.success("Video Upload Successfully");
+        this.videoUrl = event;
+        this.hideVideo = this.videoUrl;
       }
       else{
         this.videoSizeType = true;
-        this.toaster.error('Video Type Not Matched Only Allowed mp4 and Size greater than 2 Mb');
+        this.toaster.error('Video Type Not Matched and Size Less than 2 Mb');
       }
-    }
+    // }
   }
 
   displayVideo(){
