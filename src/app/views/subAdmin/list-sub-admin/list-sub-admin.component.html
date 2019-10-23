@@ -11,7 +11,7 @@
         <button class="btn btn-outline-primary float-right" routerLink="/subadmin/addsubadmin"><i class="fa fa fa-plus-square-o"></i> Add New Sub Admin</button><br>
     <div class="container table table-responsive mt-3">
         <div class="table table-responsive">
-            <table datatable [dtOptions]="dtOptions" class="hover table table-bordered" #loaded>
+            <table datatable [dtOptions]="dtOptions[1]" class="hover table table-bordered" #loaded>
                 <thead class="thead-light">
                 <tr>
                     <th>No</th>
@@ -41,6 +41,45 @@
                     <tr>
                         <td colspan="6" class="no-data-available">No Data Available</td>
                     </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+    <div style="text-align: center"><h2>List Of User</h2></div>
+    <div class="container table table-responsive mt-3">
+        <div class="table table-responsive">
+            <table datatable [dtOptions]="dtOptions[0]" class="hover table table-bordered" #loaded>
+                <thead class="thead-light">
+                <tr>
+                    <th>No</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Email Address</th>
+                    <th>Image</th>
+                    <!--<th>Approve/Reject</th>-->
+                    <!--<th>Edit</th>
+                    <th>Delete</th>-->
+                </tr>
+                </thead>
+                <tbody *ngIf="commonUser?.length != 0">
+                <tr *ngFor="let CUser of (commonUser); let i = index">
+                    <td>{{ i+1 }}</td>
+                    <td class="text-primary"><a href="" [routerLink]="['/subadmin/view', CUser.id]">{{ CUser['firstName'] }}</a></td>
+                    <td>{{ CUser['lastName'] }}</td>
+                    <td>{{ CUser['email'] }}</td>
+                    <td><img src="{{'http://192.168.11.20/UserRegistration/public/' +  CUser['image']  }}" width="50px" height="50px" class="rounded-pill"></td>
+                   <!-- <td *ngIf="user['status'] == 0"><button class="btn btn-outline-info" (click)="openModal(statusModel, user['id'], user['status'])">Activate</button></td>
+                    <td *ngIf="user['status'] == 1"><button class="btn btn-outline-danger" (click)="openModal(statusModel, user['id'], user['status'])">DeActivate</button></td>-->
+                    <!-- <td><button class="btn btn-warning" (click)="editUser(user)">Edit</button></td>
+                     <td><button class="btn btn-danger" (click)="deleteUser(user)">Delete</button></td>-->
+                </tr>
+                </tbody>
+                <tbody *ngIf="userDetails?.length == 0">
+                <tr>
+                    <td colspan="6" class="no-data-available">No Data Available</td>
+                </tr>
                 </tbody>
             </table>
         </div>

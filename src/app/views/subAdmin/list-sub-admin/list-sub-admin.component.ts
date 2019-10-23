@@ -1,4 +1,4 @@
-import {Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
+import {Component, OnInit, TemplateRef, ViewChild, QueryList} from '@angular/core';
 import {Router} from "@angular/router";
 import {ApiServiceService} from "../../../_service/api-service.service";
 import {ToastrService} from "ngx-toastr";
@@ -16,9 +16,10 @@ import {ConfigConstant} from "../../../config/config-constant";
 export class ListSubAdminComponent implements OnInit {
 
   @ViewChild(DataTableDirective, {static: false})
-  dtElement: DataTableDirective;
+  dtElement: QueryList<any>;
 
   userDetails: any;
+  commonUser: any;
   userId: number;
   status: string;
   spinner: boolean = true;
@@ -26,7 +27,7 @@ export class ListSubAdminComponent implements OnInit {
   lastName: string = '';
 
   dtTrigger: Subject<any> = new Subject();
-  dtOptions: DataTables.Settings = {};
+  dtOptions: DataTables.Settings[] = [];
   modalRef: BsModalRef;
 
   constructor(private router: Router,
@@ -35,17 +36,81 @@ export class ListSubAdminComponent implements OnInit {
               private modalService: BsModalService
   ) { }
 
-  rerender(): void {
-    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-      // Destroy the table first
-      dtInstance.draw();
-      // Call the dtTrigger to rerender again
-      this.dtTrigger.next();
+  rerender(dtValue): void {
+    this.dtElement.forEach((dtElement: DataTableDirective, index: number) => {
+      if(index==dtValue){
+        dtElement.dtInstance.then((dtInstance: any) => {
+          /*Destroy the Table Instance*/
+          dtInstance.draw();
+          this.dtTrigger.next();
+        });
+      }
     });
   }
 
   ngOnInit() {
 
+    this.userList();
+    this.adminUserList();
+
+   /*
+    this.apiService.getsubAdmin().pipe(first()).subscribe(result => {
+      if(result){
+        this.spinner = false;
+        if(result['meta'].status_code == 200){
+          this.userDetails = result['data'].userDetails;
+          this.dtTrigger.next();
+        }
+      }
+    }, error => {
+      this.spinner = false;
+      this.toaster.error(error);
+    });*/
+  }
+
+  userList(){
+    let columnsArray = [];
+    const that = this;
+
+    columnsArray = [
+      {data: 'no', orderable: false},
+      {data: 'firstName'},
+      {data: 'lastName'},
+      {data: 'email', orderable: false},
+      {data: 'image', orderable: false},
+    ];
+
+    this.dtOptions[0] = {
+      pagingType: 'full_numbers',
+      pageLength: 2,
+      serverSide: true,
+      searching: false,
+      responsive: true,
+      processing: true,
+      dom: ConfigConstant.dataTablePagination,
+      ajax: (dataTablesParameters: any, callback) => {
+        that.apiService.getUser(Object.assign(dataTablesParameters, {})).subscribe(result => {
+          that.spinner = false;
+          if(result){
+            if(result['meta'].status_code == 200){
+              that.commonUser = result['data'].userDetails.original.data;
+              callback({
+                recordsTotal: result['data'].userDetails.original.recordsTotal,
+                recordsFiltered: result['data'].userDetails.original.recordsFiltered,
+                data: []
+              });
+            }
+          }
+        }, error => {
+          this.spinner = false;
+          this.toaster.error(error);
+        });
+      },
+      columns: columnsArray
+    }
+  }
+
+  adminUserList(){
     let columnsArray = [];
     const that = this;
 
@@ -57,7 +122,7 @@ export class ListSubAdminComponent implements OnInit {
       {data: "image", orderable: false},
       {data: "status"}
     ];
-    this.dtOptions = {
+    this.dtOptions[1] = {
       pagingType: 'full_numbers',
       pageLength: 2,
       serverSide: true,
@@ -88,19 +153,6 @@ export class ListSubAdminComponent implements OnInit {
       },
       columns: columnsArray
     };
-   /*
-    this.apiService.getsubAdmin().pipe(first()).subscribe(result => {
-      if(result){
-        this.spinner = false;
-        if(result['meta'].status_code == 200){
-          this.userDetails = result['data'].userDetails;
-          this.dtTrigger.next();
-        }
-      }
-    }, error => {
-      this.spinner = false;
-      this.toaster.error(error);
-    });*/
   }
 
   /* Open Model*/
@@ -126,11 +178,13 @@ export class ListSubAdminComponent implements OnInit {
       this.spinner = false;
       if(this.status == "1"){
         this.toaster.success("User Activate Successfully");
-        this.rerender();
+        this.rerender(0);
+        this.rerender(1);
       }
       if(this.status == "0"){
         this.toaster.success('User DeActivate Successfully');
-        this.rerender();
+        this.rerender(0);
+        this.rerender(1);
       }
     }, error => {
       this.spinner = false;
