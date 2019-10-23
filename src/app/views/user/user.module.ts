@@ -7,15 +7,18 @@ import {UserComponent} from "./user.component";
 import {DataTablesModule} from "angular-datatables/index";
 import {ModalModule} from "ngx-bootstrap";
 import { UserProfileComponent } from './user-profile/user-profile.component';
+import { UserTreeViewComponent } from './user-tree-view/user-tree-view.component';
+import {TreeviewModule} from "ngx-treeview/src/treeview.module";
 
 
 @NgModule({
-  declarations: [ UserListComponent, UserComponent, UserProfileComponent ],
+  declarations: [ UserListComponent, UserComponent, UserProfileComponent, UserTreeViewComponent ],
   imports: [
     CommonModule,
     UserRoutingModule,
     DataTablesModule,
     ModalModule.forRoot(),
+    TreeviewModule.forRoot(),
   ]
 })
 export class UserModule { }

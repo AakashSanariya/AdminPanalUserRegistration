@@ -1,0 +1,22 @@
+<div class="card">
+    <div style="text-align: center"><h2>Tree View Of User</h2></div>
+    <div class="card-body" *ngIf="items">
+        <ngx-treeview [config]="config" [items]="items" (filterChange)="onFilterChange($event)" (selectedChange)="values = $event" [itemTemplate]="treeTemplate">
+        </ngx-treeview>
+
+        <ng-template #treeTemplate let-item="item" let-onCollapseExpand="onCollapseExpand" let-onCheckedChange="onCheckedChange">
+            <div class="form-inline row-item">
+                <i *ngIf="item.children" (click)="onCollapseExpand()" aria-hidden="true" class="fa" [class.fa-caret-right]="item.collapsed" [class.fa-caret-down]="!item.collapsed"></i>
+                <div class="form-check">
+                    <label class="form-check-label">
+                        <i *ngIf="item.value == 1" class="fa fa-user-circle-o" aria-hidden="true"></i> &nbsp;
+                        <i *ngIf="item.value == 0" class="fa fa-users" aria-hidden="true"></i> &nbsp;
+                    </label>
+                    <label class="form-check-label">
+                        {{item.text}}
+                    </label>
+                </div>
+            </div>
+        </ng-template>
+    </div>
+</div>

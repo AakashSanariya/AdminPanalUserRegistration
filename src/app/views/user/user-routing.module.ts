@@ -4,6 +4,7 @@ import {UserComponent} from "./user.component";
 import {UserListComponent} from "./user-list/user-list.component";
 import {AdminGuardGuard} from "../../_guard/admin-guard.guard";
 import {UserProfileComponent} from "./user-profile/user-profile.component";
+import {UserTreeViewComponent} from "./user-tree-view/user-tree-view.component";
 
 
 const routes: Routes = [
@@ -27,6 +28,13 @@ const routes: Routes = [
         component: UserProfileComponent,
         data: {
           title: 'User Profile'
+        }
+      },
+      {
+        path: 'userlist/treeview',
+        component: UserTreeViewComponent,
+        data:{
+          title: 'User List Tree View'
         }
       }
     ]
