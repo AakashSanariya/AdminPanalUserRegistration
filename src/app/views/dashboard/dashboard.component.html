@@ -42,7 +42,7 @@
 
 <div class="row mt-2">
     <div class="card mt-2 col">
-        <h5 class="card-header">Video Chart Static Entry (Bar Chart)</h5>
+        <h5 class="card-header">Video Chart Uploaded (Bar Chart)</h5>
         <div *ngIf="barChartData != null" class="card-body">
             <canvas baseChart
                     [datasets]="barChartData"
@@ -56,15 +56,15 @@
     </div>
 
     <div class="card mt-2 ml-2 col">
-        <h5 class="card-header">Video Chart Static Entry (Bar Chart)</h5>
+        <h5 class="card-header">Video Chart Uploaded (Pie Chart)</h5>
         <div class="card-body">
             <canvas baseChart
-                    [datasets]="barChartData"
-                    [labels]="barChartLabel"
-                    [options]="barChartOptions"
-                    [legend]="barChartLegend"
-                    [chartType]="barChartType"
-                    [colors]="barChartColor"
+                    [datasets]="pieChartData"
+                    [labels]="pieChartLabel"
+                    [options]="pieChartOptions"
+                    [chartType]="pieChartType"
+                    [colors]="pieChartColor"
+                    [legend]="pieChartLegend"
             ></canvas>
         </div>
     </div>

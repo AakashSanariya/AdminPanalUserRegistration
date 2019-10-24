@@ -21,8 +21,13 @@ export class DashboardComponent implements OnInit {
   totalNoVideo: number;
   totalNoSubAdmin: number;
   totalNoUser: number;
+  barCreateArray = [];
+  pieCreateArray = [];
+  monthNames = ["January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December"
+  ]; // For Matching By Number And Display Name
 
-  public barChartLabel: Label;
+  public barChartLabel = [];
   public barChartType = 'bar';
   public barChartOptions: any = {
     responsive: true,
@@ -32,6 +37,21 @@ export class DashboardComponent implements OnInit {
   ];
   public barChartLegend = false;
   public barChartColor = [
+    {
+      backgroundColor: [],
+    }
+  ];
+
+  public pieChartType = 'pie';
+  public pieChartLegend = true;
+  public pieChartLabel = [];
+  public pieChartOptions: any = {
+    responsive: true,
+  };
+  public pieChartData: any [] = [
+    { data: [], label: 'User Listing' }
+  ];
+  public pieChartColor = [
     {
       backgroundColor: [],
     }
@@ -55,10 +75,28 @@ export class DashboardComponent implements OnInit {
           this.totalNoVideo = result['data'].videoList.original.recordsTotal;
 
           /* For bar Chart*/
-          this.barChartData[0].data = ['5', '7', '9', '10'];
-          this.barChartLabel = ['Jan', 'Feb', 'Mar', 'Apr'];
+
+          /* Creating Array For Take a Different Month All List For Count */
+          result['data'].videoList.original.data.forEach(createDate => {
+            let uploadDate = new Date(createDate.created_at);
+            this.barCreateArray.push(uploadDate.getMonth());
+          });
+
+          result['data'].videoList.original.data.forEach(createDate => {
+            let uploadDate = new Date(createDate.created_at);
+
+            if(this.barChartData[0].data.indexOf(uploadDate.getMonth()) == '-1'){ //get Same Month Only Onces
+              var count = this.barCreateArray.filter((obj) => obj == uploadDate.getMonth()).length;
+              if(this.barChartData[0].data.indexOf(count) == '-1'){ // get and Push Same Count Only Once
+                this.barChartData[0].data.push(count);
+                this.barChartLabel.push(this.monthNames[uploadDate.getMonth()] + '_' + uploadDate.getFullYear());
+              }
+            }
+          });
+          // this.barChartData[0].data = ['5', '7', '9', '10'];
+          // this.barChartLabel = ['Jan', 'Feb', 'Mar', 'Apr'];
           this.barChartData[0].data.forEach(color => {
-            this.barChartColor[0].backgroundColor.push('#F9A49B');
+            this.barChartColor[0].backgroundColor.push('rgba(255,0,0,0.3)', 'rgba(0,255,0,0.3)', 'rgba(0,0,255,0.3)', 'rgba(0,246,255,0.3)');
           });
         }
       }
@@ -70,12 +108,39 @@ export class DashboardComponent implements OnInit {
     });
   }
 
+  /* Pie Chart and total User Count*/
   userCount(){
     this.apiService.getUser(this.param).subscribe(result => {
       this.spinner = false;
       if(result){
         if(result['meta'].status_code == 200){
           this.totalNoUser = result['data'].userDetails.original.recordsTotal;
+
+          /* Creating Array For Take a Different Month All List For Count */
+          result['data'].userDetails.original.data.forEach(createDate => {
+            let uploadDateUser = new Date(createDate.created_at);
+            this.pieCreateArray.push(uploadDateUser.getMonth());
+          });
+
+          result['data'].userDetails.original.data.forEach(createDate => {
+            let uploadDateUse = new Date(createDate.created_at);
+
+            if(this.pieChartData[0].data.indexOf(uploadDateUse.getMonth()) == '-1'){ //get Same Month Only Onces
+              var count = this.pieCreateArray.filter((obj) => obj == uploadDateUse.getMonth()).length;
+              if(this.pieChartData[0].data.indexOf(count) == '-1'){ // get and Push Same Count Only Once
+                this.pieChartData[0].data.push(count);
+                this.pieChartLabel.push(this.monthNames[uploadDateUse.getMonth()] + '_' + uploadDateUse.getFullYear());
+              }
+            }
+          });
+          console.log(this.pieChartData)
+          console.log(this.pieChartLabel)
+          // this.barChartData[0].data = ['5', '7', '9', '10'];
+          // this.barChartLabel = ['Jan', 'Feb', 'Mar', 'Apr'];
+          this.pieChartData[0].data.forEach(color => {
+            this.pieChartColor[0].backgroundColor.push('rgba(255,236,33,0.8)', 'rgba(241,60,89,0.8)', 'rgba(124,221,221,0.8)', 'rgba(99,62,187,0.8)');
+          });
+
         }
       }
     }, error => {
