@@ -23,6 +23,10 @@ const routes: Routes = [
     },
     children: [
       {
+        path: 'dashboard',
+        loadChildren: './views/dashboard/dashboard.module#DashboardModule'
+      },
+      {
         path: 'subadmin',
         loadChildren: () => import('./views/subAdmin/sub-admin.module').then(mod => SubAdminModule) // lazzy Loading
       },

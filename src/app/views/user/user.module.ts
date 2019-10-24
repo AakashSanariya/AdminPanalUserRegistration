@@ -9,6 +9,7 @@ import {ModalModule} from "ngx-bootstrap";
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { UserTreeViewComponent } from './user-tree-view/user-tree-view.component';
 import {TreeviewModule} from "ngx-treeview/src/treeview.module";
+import {FormsModule} from "@angular/forms";
 
 
 @NgModule({
@@ -16,6 +17,7 @@ import {TreeviewModule} from "ngx-treeview/src/treeview.module";
   imports: [
     CommonModule,
     UserRoutingModule,
+    FormsModule,
     DataTablesModule,
     ModalModule.forRoot(),
     TreeviewModule.forRoot(),

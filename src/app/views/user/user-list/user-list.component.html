@@ -1,13 +1,19 @@
-<div class="card">
-    <div class="card-body">
-    <div *ngIf="spinner; loaded">
-        <div id="overlay">
-            <div id="preloader">
-                <div id="loader"></div>
+<div class="row">
+    <div class="card col">
+        <div class="card-body">
+            <div *ngIf="spinner; loaded">
+                <div id="overlay">
+                    <div id="preloader">
+                        <div id="loader"></div>
+                    </div>
+                </div>
             </div>
+            <div style="text-align: center"><h2>List user</h2></div>
         </div>
     </div>
-    <div style="text-align: center"><h2>List user</h2></div>
+</div>
+<div class="row">
+    <div class="card col mt-2">
     <!--<button class="btn btn-primary float-right" (click)="onNewAdd()"><i class="fa fa fa-plus-square-o"></i> Add Sub Admin</button><br>-->
     <div class="container table table-responsive mt-3" #loaded>
         <div class="table table-responsive">

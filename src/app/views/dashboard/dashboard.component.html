@@ -1,0 +1,71 @@
+<div class="row">
+    <div class="card col">
+        <div *ngIf="spinner; loaded">
+            <div id="overlay">
+                <div id="preloader">
+                    <div id="loader"></div>
+                </div>
+            </div>
+        </div>
+        <h2 class="card-header text-center">Dashboard</h2>
+    </div>
+</div>
+<div class="row mt-2" #loaded>
+
+    <div *ngIf="totalNoVideo != null" class="card border-primary col">
+        <div class="card-body text-primary text-center">
+            <p class="card-text">Total Number Of Video</p>
+        </div>
+        <div class="card-footer">
+            <h4 class="text-center">{{ totalNoVideo }}</h4>
+        </div>
+    </div>
+
+    <div *ngIf="totalNoSubAdmin != null" class="card border-warning ml-2 col">
+        <div class="card-body text-warning text-center">
+            <p class="card-text">Total Number Of Sub Admin</p>
+        </div>
+        <div class="card-footer">
+            <h4 class="text-center">{{ totalNoSubAdmin }}</h4>
+        </div>
+    </div>
+
+    <div *ngIf="totalNoUser != null" class="card border-info ml-2 col">
+        <div class="card-body text-info text-center">
+            <p class="card-text">Total Number Of User</p>
+        </div>
+        <div class="card-footer">
+            <h4 class="text-center">{{ totalNoUser }}</h4>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-2">
+    <div class="card mt-2 col">
+        <h5 class="card-header">Video Chart Static Entry (Bar Chart)</h5>
+        <div *ngIf="barChartData != null" class="card-body">
+            <canvas baseChart
+                    [datasets]="barChartData"
+                    [labels]="barChartLabel"
+                    [options]="barChartOptions"
+                    [legend]="barChartLegend"
+                    [chartType]="barChartType"
+                    [colors]="barChartColor"
+            ></canvas>
+        </div>
+    </div>
+
+    <div class="card mt-2 ml-2 col">
+        <h5 class="card-header">Video Chart Static Entry (Bar Chart)</h5>
+        <div class="card-body">
+            <canvas baseChart
+                    [datasets]="barChartData"
+                    [labels]="barChartLabel"
+                    [options]="barChartOptions"
+                    [legend]="barChartLegend"
+                    [chartType]="barChartType"
+                    [colors]="barChartColor"
+            ></canvas>
+        </div>
+    </div>
+</div>

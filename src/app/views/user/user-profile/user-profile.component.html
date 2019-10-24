@@ -1,15 +1,24 @@
-<div class="card">
-    <div class="card-body">
-    <div *ngIf="spinner; loaded">
-        <div id="overlay">
-            <div id="preloader">
-                <div id="loader"></div>
+<div class="row">
+    <div class="card col">
+        <div class="card-body">
+            <div *ngIf="spinner; loaded">
+                <div id="overlay">
+                    <div id="preloader">
+                        <div id="loader"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="container" #loaded>
+                <h2 class="text-center">User Details Profile</h2>
             </div>
         </div>
     </div>
-    <div class="container" #loaded>
-        <h2>User Details Profile</h2>
-        <button class="float-right btn btn-outline-dark" routerLink="/user/list"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back User List</button>
+</div>
+<div class="row">
+    <div class="card col mt-2">
+        <div class="card-body">
+            <button class="float-right btn btn-outline-dark" routerLink="/user/list"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back User List</button>
+        </div>
         <div class="card border-warning col-8" *ngIf="userDetails">
             <br>
             <img class="card-img-top border border-primary" src="{{'http://192.168.11.20/UserRegistration/public/' +  userDetails.image }}" alt="{{ userDetails.image }}" style="width:25%">
@@ -26,6 +35,5 @@
                 </div>
             </div>
         </div>
-    </div>
     </div>
 </div>

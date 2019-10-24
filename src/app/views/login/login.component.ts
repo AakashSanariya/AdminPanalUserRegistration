@@ -49,7 +49,7 @@ export class LoginComponent implements OnInit {
               this.cookieService.set('Name', result['data'].data.userName, ceDate);
               this.cookieService.set('Role', result['data'].data.role, ceDate);
 
-              this.router.navigate(['/subadmin/list']);
+              this.router.navigate(['/dashboard']);
             }
           }, error => {
             this.toaster.error(error['meta'].message);

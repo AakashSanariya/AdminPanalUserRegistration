@@ -1,15 +1,22 @@
 <div>
 <div id="wrapper" class="backcolor">
     <nav class="navbar header-top fixed-top navbar-expand-lg  navbar-dark bg-dark">
-        <a class="navbar-brand" href="" routerLink="">User Registration</a>
+        <a class="navbar-brand" href="" routerLink="/dashboard">User Registration</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText"
                 aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarText">
             <ul class="navbar-nav side-nav">
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/dashboard" routerLinkActive="active">
+                        <i class="fa fa-tachometer" aria-hidden="true"></i> Dashboard
+                    </a>
+                </li>
                 <li class="nav-item" *ngxPermissionsOnly="['SUPER_ADMIN' ,'ADMIN']">
-                    <a class="nav-link" routerLink="/video/list" routerLinkActive="active"><i class="fa fa-video-camera" aria-hidden="true"></i> Video</a>
+                    <a class="nav-link" routerLink="/video/list" routerLinkActive="active">
+                        <i class="fa fa-video-camera" aria-hidden="true"></i> Video
+                    </a>
                 </li>
                 <li class="nav-item" *ngxPermissionsOnly="['SUPER_ADMIN']">
                     <a class="nav-link" routerLink="/subadmin/list" routerLinkActive="active">

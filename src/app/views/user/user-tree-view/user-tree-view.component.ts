@@ -19,6 +19,8 @@ export class UserTreeViewComponent implements OnInit {
     hasCollapseExpand: true,
   });
 
+  spinner: boolean = true;
+  
   constructor(private apiService: ApiServiceService,
       private toaster: ToastrService
   ) { }
@@ -36,6 +38,7 @@ export class UserTreeViewComponent implements OnInit {
 
   subAdminList(){
     this.apiService.getsubAdmin(this.treeUser).subscribe(result => {
+      this.spinner = false;
       if(result){
         if(result['meta'].status_code == 200){
           this.items = result['data'].userDetails.original.data;
@@ -59,6 +62,7 @@ export class UserTreeViewComponent implements OnInit {
         }
       }
     }, error => {
+      this.spinner = false;
       if(error['meta'].message){
         this.toaster.error(error['meta'].message);
       }
@@ -67,6 +71,7 @@ export class UserTreeViewComponent implements OnInit {
 
   userList(){
     this.apiService.getUser(this.treeUser).subscribe(result => {
+      this.spinner = false;
       if(result){
         if(result['meta'].status_code == 200){
           this.items = result['data'].userDetails.original.data;
@@ -91,9 +96,13 @@ export class UserTreeViewComponent implements OnInit {
         }
       }
     }, error => {
+      this.spinner = false;
       if(error['meta'].message){
         this.toaster.error(error['meta'].message);
       }
     });
+  }
+  
+  savePermission(){
   }
 }

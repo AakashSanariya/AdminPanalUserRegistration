@@ -18,12 +18,12 @@ export class AdminGuardGuard implements CanActivate{
     }
     if(localStorage.getItem('role') === "Admin"){
       this.permissionService.loadPermissions(['ADMIN', 'USER']);
-      this.router.navigate(['/user/list']);
+      this.router.navigate(['/dashboard']);
       return true;
     }
     if(localStorage.getItem('role') === "User"){
       this.permissionService.loadPermissions(['USER']);
-      this.router.navigate(['profile/profile']);
+      this.router.navigate(['/dashboard']);
       return true;
     }
     else{

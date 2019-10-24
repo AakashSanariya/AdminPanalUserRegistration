@@ -1,6 +1,21 @@
-<div class="card">
-    <div style="text-align: center"><h2>Tree View Of User</h2></div>
-    <div class="card-body" *ngIf="items">
+<div class="row">
+    <div class="card col">
+        <div *ngIf="spinner; loaded">
+            <div id="overlay">
+                <div id="preloader">
+                    <div id="loader"></div>
+                </div>
+            </div>
+        </div>
+        <div style="text-align: center"><h2>Tree View Of User</h2></div>
+    </div>
+</div>
+<div class="row">
+    <div class="card col mt-2">
+    <div class="card-body"><button  type="submit" (click)="savePermission()" class="btn btn-primary btn-with-icon">
+        <i class="ion-android-checkmark-circle"></i><i class="fa fa-check-circle-o fa-lg"></i> Save
+    </button></div>
+    <div class="card-body" *ngIf="items" #loaded>
         <ngx-treeview [config]="config" [items]="items" (filterChange)="onFilterChange($event)" (selectedChange)="values = $event" [itemTemplate]="treeTemplate">
         </ngx-treeview>
 
@@ -8,15 +23,17 @@
             <div class="form-inline row-item">
                 <i *ngIf="item.children" (click)="onCollapseExpand()" aria-hidden="true" class="fa" [class.fa-caret-right]="item.collapsed" [class.fa-caret-down]="!item.collapsed"></i>
                 <div class="form-check">
+                    <input type="checkbox" class="form-check-input" [(ngModel)]="item.checked" (ngModelChange)="onCheckedChange()" [disabled]="item.disabled" [indeterminate]="item.indeterminate" />
                     <label class="form-check-label">
                         <i *ngIf="item.value == 1" class="fa fa-user-circle-o" aria-hidden="true"></i> &nbsp;
                         <i *ngIf="item.value == 0" class="fa fa-users" aria-hidden="true"></i> &nbsp;
                     </label>
-                    <label class="form-check-label">
+                    <label class="form-check-label" (click)="item.checked = !item.checked; onCheckedChange()">
                         {{item.text}}
                     </label>
                 </div>
             </div>
         </ng-template>
+    </div>
     </div>
 </div>
