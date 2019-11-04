@@ -17,13 +17,20 @@ import {ModalModule} from "ngx-bootstrap";
 import {NgxPermissionsModule} from "ngx-permissions";
 import {CookieService} from "ngx-cookie-service";
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
-import { MustMatchDirective } from './_helper/must-match.directive';
-
+/*import { MustMatchDirective } from './_helper/must-match.directive';
+import { ReusableComponent } from './views/reusable/reusable.component';
+import { FirstLastNameComponent } from './views/first-last-name/first-last-name.component';
+import { ConfirmAndPasswordComponent } from './views/confirm-and-password/confirm-and-password.component';*/
+import {SharedModule} from "./shared/shared.module";
+// import {LibraryDemoFirstModule} from 'library-demo-first/src/lib/library-demo-first.module'
 @NgModule({
   declarations: [
     AppComponent,
     DefaultLayoutComponent,
     LoginComponent,
+    // ConfirmAndPasswordComponent,
+    // FirstLastNameComponent,
+    // ReusableComponent,
   ],
   imports: [
     BrowserModule,
@@ -38,12 +45,15 @@ import { MustMatchDirective } from './_helper/must-match.directive';
     NgxPermissionsModule.forRoot(),
     AngularFontAwesomeModule,
     BsDatepickerModule.forRoot(),
+    SharedModule,
+    // LibraryDemoFirstModule,
   ],
   providers: [
     AuthguardGuard,
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     CookieService,
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  /*entryComponents: [ReusableComponent, FirstLastNameComponent, ConfirmAndPasswordComponent]*/
 })
 export class AppModule { }

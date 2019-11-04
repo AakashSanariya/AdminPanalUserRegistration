@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {BsDatepickerConfig} from "ngx-bootstrap/datepicker";
+import {ApiServiceService} from "../../../_service/api-service.service";
+import {ToastrService} from "ngx-toastr";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-add-edit-sub-admin',
@@ -8,19 +11,53 @@ import {BsDatepickerConfig} from "ngx-bootstrap/datepicker";
 })
 export class AddEditSubAdminComponent implements OnInit {
 
-  colorTheme = 'theme-dark-blue'
-  bsConfig: Partial<BsDatepickerConfig>;
-  editDetails: any = {};
+  editDetails:any = {};
+  image: any;
 
-  constructor() {
-    this.bsConfig = Object.assign({ dateInputFormat: 'DD/MM/YYYY' }, { containerClass: this.colorTheme }, { isAnimated: true });
+  constructor(private apiService: ApiServiceService,
+              private toaster: ToastrService,
+              private route: Router
+  ) {
   }
 
   ngOnInit() {
   }
 
-  onSubmit(payLoad){
-    console.log(payLoad);
+  fileUpload(event){
+    if(event.target.files.length > 0){
+      this.image= event.target.files[0];
+      this.toaster.success("Image Upload Successfully");
+    }
+  }
+
+  onSubmit(userData){
+    console.log(userData);
+    const payLoad = new FormData();
+    payLoad.append('firstName', userData.firstName);
+    payLoad.append('lastName', userData.lastName);
+    payLoad.append('email', userData.email);
+    payLoad.append('mobileNo', userData.mobileNo);
+    payLoad.append('gender', userData.gender);
+    payLoad.append('DOB', userData.DOB);
+    payLoad.append('image', this.image);
+    payLoad.append('password', userData.password);
+    payLoad.append('confirmPassword', userData.confirmPassword);
+    payLoad.append('role', 'User'); // static Role of User
+    payLoad.append('status', '0'); // By Default Status is In Activate
+
+    this.apiService.userRegister(payLoad).subscribe(result => {
+      if(result){
+        if(result['meta'].status_code == 200){
+          this.toaster.success(result['meta'].message);
+          this.route.navigate(['dashboard']);
+        }
+      }
+    }, error => {
+      if(error){
+        this.toaster.error(error['meta'].message);
+      }
+    });
+
   }
 
 }

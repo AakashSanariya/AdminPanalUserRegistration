@@ -17,7 +17,15 @@
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
+    "paths": {
+      "library-demo-first": [
+        "/home/akashsanariya/htdocs/libraryDemo/projects/library-demo-first"
+      ],
+      "library-demo-first/*": [
+        "/home/akashsanariya/htdocs/libraryDemo/projects/library-demo-first/*"
+      ]
+    }
   },
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,

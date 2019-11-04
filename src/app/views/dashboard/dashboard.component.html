@@ -41,7 +41,8 @@
 </div>
 
 <div class="row mt-2">
-    <div class="card mt-2 col">
+    <div class="col-md-6">
+    <div class="card mt-2">
         <h5 class="card-header">Video Chart Uploaded (Bar Chart)</h5>
         <div *ngIf="barChartData != null" class="card-body">
             <canvas baseChart
@@ -54,9 +55,11 @@
             ></canvas>
         </div>
     </div>
+    </div>
 
-    <div class="card mt-2 ml-2 col">
-        <h5 class="card-header">Video Chart Uploaded (Pie Chart)</h5>
+    <div class="col-md-6">
+    <div class="card mt-2">
+        <h5 class="card-header">User Sign Up (Pie Chart)</h5>
         <div class="card-body">
             <canvas baseChart
                     [datasets]="pieChartData"
@@ -67,5 +70,11 @@
                     [legend]="pieChartLegend"
             ></canvas>
         </div>
+    </div>
+    </div>
+</div>
+<div class="row mt-2">
+    <div class="col-md-12">
+        <enl-libraryDemoFirst></enl-libraryDemoFirst>
     </div>
 </div>

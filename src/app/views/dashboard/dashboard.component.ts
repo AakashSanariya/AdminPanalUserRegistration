@@ -31,6 +31,11 @@ export class DashboardComponent implements OnInit {
   public barChartType = 'bar';
   public barChartOptions: any = {
     responsive: true,
+    scales: {
+      yAxes: [{
+        ticks: { min: 1 },
+      }]
+    }
   };
   public barChartData: any [] = [
     { data: [], label: 'Video Uploaded' }
@@ -124,7 +129,6 @@ export class DashboardComponent implements OnInit {
 
           result['data'].userDetails.original.data.forEach(createDate => {
             let uploadDateUse = new Date(createDate.created_at);
-
             if(this.pieChartData[0].data.indexOf(uploadDateUse.getMonth()) == '-1'){ //get Same Month Only Onces
               var count = this.pieCreateArray.filter((obj) => obj == uploadDateUse.getMonth()).length;
               if(this.pieChartData[0].data.indexOf(count) == '-1'){ // get and Push Same Count Only Once
@@ -133,10 +137,6 @@ export class DashboardComponent implements OnInit {
               }
             }
           });
-          console.log(this.pieChartData)
-          console.log(this.pieChartLabel)
-          // this.barChartData[0].data = ['5', '7', '9', '10'];
-          // this.barChartLabel = ['Jan', 'Feb', 'Mar', 'Apr'];
           this.pieChartData[0].data.forEach(color => {
             this.pieChartColor[0].backgroundColor.push('rgba(255,236,33,0.8)', 'rgba(241,60,89,0.8)', 'rgba(124,221,221,0.8)', 'rgba(99,62,187,0.8)');
           });

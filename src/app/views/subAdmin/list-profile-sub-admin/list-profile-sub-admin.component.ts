@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {RouterLinkActive, ActivatedRoute, Router} from "@angular/router";
 import {ApiServiceService} from "../../../_service/api-service.service";
 import {ToastrService} from "ngx-toastr";
+import {ReusableComponent} from "../../reusable/reusable.component";
 
 @Component({
   selector: 'app-list-profile-sub-admin',

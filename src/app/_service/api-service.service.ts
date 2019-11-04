@@ -42,4 +42,10 @@ export class ApiServiceService {
     let userId: number = id;
     return this.http.post(CONFIG.updateUser + userId, payLoad);
   }
+
+  userRegister(payLoad){
+    return this.http.post(CONFIG.userRegister, payLoad).pipe(map(result => {
+      return result;
+    }));
+  }
 }

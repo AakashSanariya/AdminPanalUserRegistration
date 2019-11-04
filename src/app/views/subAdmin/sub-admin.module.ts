@@ -11,6 +11,7 @@ import {CKEditorModule} from "ngx-ckeditor";
 import { ListProfileSubAdminComponent } from './list-profile-sub-admin/list-profile-sub-admin.component';
 import {FormsModule} from "@angular/forms";
 import {MustMatchDirective} from "../../_helper/must-match.directive";
+import {SharedModule} from "../../shared/shared.module";
 
 
 
@@ -23,6 +24,7 @@ import {MustMatchDirective} from "../../_helper/must-match.directive";
     CKEditorModule,
     ModalModule.forRoot(),
     FormsModule,
+    SharedModule,
     BsDatepickerModule.forRoot(),
   ]
 })
