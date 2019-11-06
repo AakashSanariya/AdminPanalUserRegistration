@@ -19,11 +19,11 @@
       "dom"
     ],
     "paths": {
-      "library-demo-first": [
-        "/home/akashsanariya/htdocs/libraryDemo/projects/library-demo-first"
+      "api-calling": [
+        "/home/akashsanariya/htdocs/AngLib/dist/api-calling"
       ],
-      "library-demo-first/*": [
-        "/home/akashsanariya/htdocs/libraryDemo/projects/library-demo-first/*"
+      "api-calling/*": [
+        "/home/akashsanariya/htdocs/AngLib/dist/api-calling/*"
       ]
     }
   },
