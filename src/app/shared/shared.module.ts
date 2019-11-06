@@ -5,11 +5,13 @@ import {FirstLastNameComponent} from "../views/first-last-name/first-last-name.c
 import {FormsModule} from "@angular/forms";
 import {BsDatepickerModule} from "ngx-bootstrap";
 import {ApiCallingModule, ApiCallingComponent} from "api-calling";
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
+    HttpClientModule,
     BsDatepickerModule.forRoot(),
     // ApiCallingModule,
   ],
