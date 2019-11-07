@@ -29,3 +29,25 @@
     </div>
     </div>
 </div>
+<div class="row mt-2">
+    <div class="col-md-12">
+        <div class="card">
+            <h5 class="card-header">Google Map</h5>
+            <div class="card-body">
+                <label class="col-12">
+                    <input type="text" class="form-control" placeholder="Search Nearest Location" #searchInput>
+                </label>
+                <agm-map [latitude]="lat" [longitude]="lon">
+                    <agm-marker
+                            [latitude]="lat"
+                            [longitude]="lon"
+                            [markerDraggable]="draggable"
+                            (dragEnd)="markerEndMoving($event)"
+                    ></agm-marker>
+                </agm-map>
+            </div>
+            <h5 *ngIf="addressName" class="card-footer">Address: {{ addressName }}</h5>
+            <h5 *ngIf="!addressName" class="card-footer">Address: Lat: {{ lat }}, Lng: {{ lon }}</h5>
+        </div>
+    </div>
+</div>
