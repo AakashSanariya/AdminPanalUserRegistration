@@ -97,7 +97,7 @@ export class AddEditVideoComponent implements OnInit {
   changeVideo(data){
     let videoType = [ "video/mp4", "video/mpeg4", "video/3gpp"];
     // if(event.target.files.length > 0){
-    if($.inArray(data.files[0].type, videoType) == 0 && data.files[0].size >= 5000000) {
+    if($.inArray(data.files[0].type, videoType) == 0 && data.files[0].size <= 5000000) {
       this.videoUpload(data.files[0]);
     }
     else{
@@ -175,7 +175,7 @@ export class AddEditVideoComponent implements OnInit {
   videoUpload(event){
     let videoType = [ "video/mp4", "video/webm", "video/3gpp"];
     // if(event.target.files.length > 0){
-      if($.inArray(event.type, videoType) == 0 && event.size >= 5000000){
+      if($.inArray(event.type, videoType) == 0 && event.size <= 5000000){
         this.videoSizeType = false;
         this.videoUrl = event;
         this.hideVideo = this.videoUrl;

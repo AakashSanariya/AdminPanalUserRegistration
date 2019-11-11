@@ -1,4 +1,3 @@
-<h4>Hi <app-reusable [userName]="userDetails?.firstName"></app-reusable> How are you?</h4>
 <div class="card">
     <div class="card-body">
     <div *ngIf="spinner; loaded">
@@ -37,7 +36,7 @@
                 <label class="col-12">
                     <input type="text" class="form-control" placeholder="Search Nearest Location" #searchInput>
                 </label>
-                <agm-map [latitude]="lat" [longitude]="lon">
+                <agm-map [latitude]="lat" [longitude]="lon" [mapTypeId]="'hybrid'">
                     <agm-marker
                             [latitude]="lat"
                             [longitude]="lon"

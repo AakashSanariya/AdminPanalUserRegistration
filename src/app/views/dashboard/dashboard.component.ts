@@ -62,9 +62,15 @@ export class DashboardComponent implements OnInit {
     }
   ];
 
+  userName: string;
+  userId: string;
+
   ngOnInit() {
     this.barChart();
     this.userCount();
+
+    this.userName = localStorage.getItem('userName');
+    this.userId = localStorage.getItem('userId');
 
     let role = localStorage.getItem('role');
     if(role == 'SuperAdmin' || role == 'Admin'){
